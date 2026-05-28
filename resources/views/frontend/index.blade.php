@@ -948,7 +948,7 @@ Home
 
         .get-in-touch {
             /* Smooth background gradient + image overlay */
-            background: linear-gradient(to right, rgba(116, 188, 198, 0.5), rgba(116, 188, 198, 0.1)), url(https://tapariatools.tapariatools.com/public/frontend/images/get-in-touch-new.png) center / contain no-repeat;
+            background: linear-gradient(to right, rgba(116, 188, 198, 0.5), rgba(116, 188, 198, 0.1)), url(https://tapariatools.tapariatools.com/frontend/images/get-in-touch-new.png) center / contain no-repeat;
 
             /* Fixed background for parallax-like effect */
             background-attachment: fixed;
@@ -1657,7 +1657,7 @@ Home
             <!-- 1 -->
             <div class="col-md-6 col-lg-4 mb-5">
                 <div class="best-pro-box">
-                    <img src="public/frontend/images/BOXSPANNERS.jpg" style="max-width: 200px; height: auto; margin: 0 auto; display: block;" />
+                    <img src="frontend/images/BOXSPANNERS.jpg" style="max-width: 200px; height: auto; margin: 0 auto; display: block;" />
                     <div class="hover-section text-center">
                         <h4 style="font-size: 0.8rem !important;"><a href="#" class="text-decoration-none" style="color:#74BCC6;">BOX SPANNERS</a></h4>
                     </div>
@@ -1670,7 +1670,7 @@ Home
             <!-- 2 -->
             <div class="col-md-6 col-lg-4 mb-5">
                 <div class="best-pro-box">
-                    <img src="public/frontend/images/CUPWHEEL.jpg" style="max-width: 200px; height: auto; margin: 0 auto; display: block;" />
+                    <img src="frontend/images/CUPWHEEL.jpg" style="max-width: 200px; height: auto; margin: 0 auto; display: block;" />
                     <div class="hover-section text-center">
                         <h4 style="font-size: 0.8rem !important;"><a href="#" class="text-decoration-none" style="color:#74BCC6;">CUP WHEEL</a></h4>
                     </div>
@@ -1683,7 +1683,7 @@ Home
             <!-- 3 -->
             <div class="col-md-6 col-lg-4 mb-5">
                 <div class="best-pro-box">
-                    <img src="public/frontend/images/ELECTRICIANHAMMERS.jpg" style="max-width: 200px; height: auto; margin: 0 auto; display: block;" />
+                    <img src="frontend/images/ELECTRICIANHAMMERS.jpg" style="max-width: 200px; height: auto; margin: 0 auto; display: block;" />
                     <div class="hover-section text-center">
                         <h4 style="font-size: 0.8rem !important;"><a href="#" class="text-decoration-none" style="color:#74BCC6;">ELECTRICIAN HAMMERS</a></h4>
                     </div>
@@ -1696,7 +1696,7 @@ Home
             <!-- 4 -->
             <div class="col-md-6 col-lg-4 mb-5">
                 <div class="best-pro-box">
-                    <img src="public/frontend/images/FCLAMP.jpg" style="max-width: 200px; height: auto; margin: 0 auto; display: block;" />
+                    <img src="frontend/images/FCLAMP.jpg" style="max-width: 200px; height: auto; margin: 0 auto; display: block;" />
                     <div class="hover-section text-center">
                         <h4 style="font-size: 0.8rem !important;"><a href="#" class="text-decoration-none" style="color:#74BCC6;">F CLAMP</a></h4>
                     </div>
@@ -1709,7 +1709,7 @@ Home
             <!-- 5 -->
             <div class="col-md-6 col-lg-4 mb-5">
                 <div class="best-pro-box">
-                    <img src="public/frontend/images/HALFMOONSPANNER.jpg"  style="max-width: 200px; height: auto; margin: 0 auto; display: block;"/>
+                    <img src="frontend/images/HALFMOONSPANNER.jpg"  style="max-width: 200px; height: auto; margin: 0 auto; display: block;"/>
                     <div class="hover-section text-center">
                         <h4 style="font-size: 0.8rem !important;"><a href="#" class="text-decoration-none" style="color:#74BCC6;">HALF MOON SPANNER</a></h4>
                     </div>
@@ -1722,7 +1722,7 @@ Home
             <!-- 6 -->
             <div class="col-md-6 col-lg-4 mb-5">
                 <div class="best-pro-box">
-                    <img src="public/frontend/images/MINIPLIERS.jpg" style="max-width: 200px; height: auto; margin: 0 auto; display: block;" />
+                    <img src="frontend/images/MINIPLIERS.jpg" style="max-width: 200px; height: auto; margin: 0 auto; display: block;" />
                     <div class="hover-section text-center">
                         <h4 style="font-size: 0.8rem !important;"><a href="#" class="text-decoration-none" style="color:#74BCC6;">MINI PLIERS</a></h4>
                     </div>
@@ -1735,7 +1735,7 @@ Home
             <!-- 7 -->
             <div class="col-md-6 col-lg-4 mb-5">
                 <div class="best-pro-box">
-                    <img src="public/frontend/images/PIPEVICES.jpg"  style="max-width: 200px; height: auto; margin: 0 auto; display: block;"/>
+                    <img src="frontend/images/PIPEVICES.jpg"  style="max-width: 200px; height: auto; margin: 0 auto; display: block;"/>
                     <div class="hover-section text-center">
                         <h4 style="font-size: 0.8rem !important;"><a href="#" class="text-decoration-none" style="color:#74BCC6;">PIPE VICES</a></h4>
                     </div>
@@ -1748,7 +1748,7 @@ Home
             <!-- 8 -->
             <div class="col-md-6 col-lg-4 mb-5">
                 <div class="best-pro-box">
-                    <img src="public/frontend/images/SCREWDRIVERBITSET(80pcs).jpg" style="max-width: 200px; height: auto; margin: 0 auto; display: block;" />
+                    <img src="frontend/images/SCREWDRIVERBITSET(80pcs).jpg" style="max-width: 200px; height: auto; margin: 0 auto; display: block;" />
                     <div class="hover-section text-center">
                         <h4 style="font-size: 0.8rem !important;"><a href="#" class="text-decoration-none" style="color:#74BCC6;">SCREW DRIVER BIT SET (80 pcs)</a></h4>
                     </div>
@@ -1761,7 +1761,7 @@ Home
             <!-- 9 -->
             <div class="col-md-6 col-lg-4 mb-5">
                 <div class="best-pro-box">
-                    <img src="public/frontend/images/VDEPLIERS.jpg" style="max-width: 200px; height: auto; margin: 0 auto; display: block;"/>
+                    <img src="frontend/images/VDEPLIERS.jpg" style="max-width: 200px; height: auto; margin: 0 auto; display: block;"/>
                     <div class="hover-section text-center">
                         <h4 style="font-size: 0.8rem !important;"><a href="#" class="text-decoration-none" style="color:#74BCC6;">VDE PLIERS</a></h4>
                     </div>
