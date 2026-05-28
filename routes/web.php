@@ -14,7 +14,7 @@ use App\Http\Controllers\ReportsAndDownloadController;
 use Illuminate\Support\Facades\Artisan;
 
 
-Route::get('/optimize-routes', function () {F
+Route::get('/optimize-routes', function () {
     Artisan::call('route:clear');
     Artisan::call('route:cache');
 
