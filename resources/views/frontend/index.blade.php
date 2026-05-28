@@ -948,7 +948,7 @@ Home
 
         .get-in-touch {
             /* Smooth background gradient + image overlay */
-            background: linear-gradient(to right, rgba(116, 188, 198, 0.5), rgba(116, 188, 198, 0.1)), url(https://tapariatools.tapariatools.com/frontend/images/get-in-touch-new.png) center / contain no-repeat;
+            background: linear-gradient(to right, rgba(116, 188, 198, 0.5), rgba(116, 188, 198, 0.1)), url(frontend/images/get-in-touch-new.png) center / contain no-repeat;
 
             /* Fixed background for parallax-like effect */
             background-attachment: fixed;
