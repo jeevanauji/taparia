@@ -420,7 +420,7 @@ Downloads
 
         <!-- Main Download Button -->
         <div class="text-center mt-4 gap-4" data-aos="fade-up">
-            <a href="/public/Taparia_Tools_Price_List_2025.pdf" target="_blank"
+            <a href="/Taparia_Tools_Price_List_2025.pdf" target="_blank"
               style="background:#676464;color:#fff; display:inline-flex;align-items:center; border-radius:4px; border:none;"
                class="btn btn-outline-primary position-relative wow fadeInRight mt-2"
               data-wow-delay="0.6s" >
@@ -428,7 +428,7 @@ Downloads
                 <span class="material-icons" style="font-size: 22px;">download</span>
                 New Product Price List
             </a>
-            <a href="/public/Taparia_Tools_Price_List_2025.pdf" target="_blank"
+            <a href="/Taparia_Tools_Price_List_2025.pdf" target="_blank"
                style="background:#676464;display:inline-flex;  color:#fff;align-items:center; border-radius:4px; border:none;" 
                class="btn btn-outline-primary position-relative wow fadeInRight mt-2"
               data-wow-delay="0.6s" >
@@ -474,7 +474,7 @@ Downloads
                         <td style="text-align:left; color:#74bcc6; padding-left:1rem; font-size: 15px; text-transform:uppercase; font-weight:bold;" data-label="Resource">
                             New Product Price List</td>
                         <td data-label="Download">
-                            <a href="/public/Taparia_Tools_Price_List_2025.pdf"  target="_blank" aria-label="Download ">
+                            <a href="/Taparia_Tools_Price_List_2025.pdf"  target="_blank" aria-label="Download ">
                                 <span class="material-icons" style="font-size: 16px;"></span> Download
                             </a>
                         </td>
@@ -487,7 +487,7 @@ Downloads
                         <td style="text-align:left; color:#74bcc6; font-size: 15px;padding-left:1rem; text-transform:uppercase; font-weight:bold;" data-label="Resource">
                             All Products Price List</td>
                         <td data-label="Download">
-                            <a href="/public/Taparia_Tools_Price_List_2025.pdf" target="_blank" aria-label="Download">
+                            <a href="/Taparia_Tools_Price_List_2025.pdf" target="_blank" aria-label="Download">
                                 <span class="material-icons" style="font-size: 16px;"></span> Download
                             </a>
                         </td>
@@ -499,7 +499,7 @@ Downloads
                         data-name="{{ strtolower($download->contentName) }}">
                         <td style="text-align:left; padding-left:1rem;" data-label="Resource">{{ $download->contentName }}</td>
                         <td data-label="Download">
-                            <a href="public/{{ $download->pdfFile }}" target="_blank" aria-label="Download {{ $download->contentName }}">
+                            <a href="{{ $download->pdfFile }}" target="_blank" aria-label="Download {{ $download->contentName }}">
                                 <span class="material-icons" style="font-size: 16px;"></span> Download
                             </a>
                         </td>
