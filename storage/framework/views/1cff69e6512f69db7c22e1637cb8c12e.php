@@ -1,0 +1,174 @@
+<?php $__env->startSection('title'); ?>
+Sub Categories
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+<style type="text/css">
+    #subCategoryImage {
+        line-height: 1.3
+    }
+</style>
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Sub Categories</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="<?php echo e(route('dashboard')); ?>">Home</a></li>
+                    <li class="breadcrumb-item active"><a href="<?php echo e(route('subcategory.index')); ?>">Sub Category</a></li>
+                </ol>
+            </div>
+        </div>
+
+        <?php echo $__env->make('backend.layout.alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Create Sub Category</h3>
+        </div>
+        <form id="categoryForm" action="<?php echo e(route('subcategory.store')); ?>" method="POST" enctype="multipart/form-data">
+            <?php echo csrf_field(); ?>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="categorySelect">Select Category <span class="text-danger">*</span></label>
+                            <select class="form-control select2" id="categorySelect" name="category_id" style="width: 100%;" required="">
+                                <option value="" disabled selected>Select Category</option>
+                                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="subcategoryName">Sub Category Name</label>
+                            <input type="text" class="form-control" id="subcategoryName" name="name" placeholder="Enter Sub Category Name" pattern="[A-Za-z\s]+" title="Subcategory name should only contain alphabetic characters and spaces." required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="subCategoryImage">
+                                Sub Category Image 
+                                <span class="text-danger">*</span>
+                                <small class="text-danger">(Image size 415x365px for optimal layout.)</small>
+                            </label>
+                            <input type="file" name="subCategoryImage" id="subCategoryImage" class="form-control" title="Sub Category Image" accept="image/*" required="" onchange="checkFileSize(this);" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
+            </div>
+        </form>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Sub Category Report</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body ">
+            <table id="example1" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Sr.</th>
+                        <th>Category</th>
+                        <th>Sub Category</th>
+                        <th>Image</th>
+                        <th>Created At</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $__currentLoopData = $subCategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subcategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <tr>
+                        <td><?php echo e($loop->iteration); ?></td>
+                        <td><?php echo e($subcategory->category ? $subcategory->category->name : 'No Category Found'); ?></td>
+                        <td><?php echo e($subcategory->name); ?></td>
+                        <td>
+                            <?php if($subcategory->subCategoryImage): ?>
+                            <img src="<?php echo e(url($subcategory->subCategoryImage)); ?>" style="width: 100px;" />
+                            <?php endif; ?>
+                        </td>
+                      <td><?php echo e(optional($subcategory->created_at)->format('Y/m/d')); ?></td>
+
+                        <td>
+                            <!-- Edit Button -->
+                            <a href="javascript:void(0);" class="btn btn-success btn-sm" onclick="subCategoryEdit(<?php echo e($subcategory->id); ?>);">
+                                <i class="fas fa-edit"></i> <!-- Edit icon -->
+                            </a>
+
+                            <!-- Delete Button -->                          
+                            <a href="<?php echo e(url('admin/subcategory/delete/' . $subcategory->id)); ?>" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </a>       
+                        </td>
+                    </tr>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>    
+</section>
+
+<div class="modal fade" id="modal-sub-category-edit" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>        
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('javaScript'); ?>
+<script type="text/javascript">
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": true, "autoWidth": false,
+            //"buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    
+        $('.select2').select2();
+    });
+    
+    const subCategoryEdit = (subCategoryId) => {
+        $("#modal-sub-category-edit .modal-dialog .modal-content").load("<?php echo e(url('admin/subcategory/edit')); ?>/" + subCategoryId, function() {
+            // Reinitialize select2 dropdowns after loading modal content
+            $('#modal-sub-category-edit .select2').each(function() {
+                $(this).select2({
+                    dropdownParent: $(this).parent()
+                });
+            });
+        });
+        $('#modal-sub-category-edit').modal('show');
+    };
+    
+    function checkFileSize(input) {
+        const maxSize = 512 * 1024;
+        const file = input.files[0];
+      
+        if (file && file.size > maxSize) {
+            alert("The file size exceeds 512 KB. Please select a smaller file.");
+            input.value = "";
+        }
+    }
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('backend.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/vhosts/tapariatools.com/tapariatools.tapariatools.com/resources/views/backend/subcategory/index.blade.php ENDPATH**/ ?>
