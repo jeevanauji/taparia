@@ -809,7 +809,7 @@
                     </div>
                     <!-- Download Button -->
                     <div class="catelog-d-btn mt-3 mb-3 text-left">
-                        <a href="{{ $productInfo->productCatalogue ? url('public/' . $productInfo->productCatalogue) : 'javascript:void(0);' }}" target="_blank" title="Download Product Catalogue" download="" style="background: #676464; border-radius: 4px;" href="#"
+                        <a href="{{ $productInfo->productCatalogue ? url($productInfo->productCatalogue) : 'javascript:void(0);' }}" target="_blank" title="Download Product Catalogue" download="" style="background: #676464; border-radius: 4px;" href="#"
                             class="btn btn-outline-primary position-relative wow fadeInRight" data-wow-delay="0.6s">
                             <span style="font-size: 12px; color: #ffffff; font-weight: bold;">DOWNLOAD CATALOGUE</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24">
