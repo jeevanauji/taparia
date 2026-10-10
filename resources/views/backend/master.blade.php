@@ -75,5 +75,5 @@
         </script>
         
         @yield('javaScript')        
-    </body>
-</html>
+    <!-- </body>
+</html> -->
