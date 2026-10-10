@@ -209,14 +209,15 @@ class HomeController extends Controller
     
     public function productDetails($productName)
     {
+        $productName = str_replace('-dot-', '.', $productName);
         $formattedProductName = str_replace('-', ' ', $productName);
         $productInfo = Products::where('productName', $formattedProductName)->where('isDeleted', 1)->first();
         if ($productInfo) {
             $productImages = ProductImages::where('productId', $productInfo->id)->where('isDeleted', 1)->get();  
            
-            return view('frontend.product-details', compact('productInfo', 'productImages'));
+            // return view('frontend.product-details', compact('productInfo', 'productImages'));
         } else {
-            return redirect('products');
+            // return redirect('products');
         }
     }   
     

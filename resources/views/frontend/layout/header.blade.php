@@ -1463,7 +1463,10 @@
                                             <ul class="products-list">
                                                 @foreach($subCategory->products as $product)
                                                 <li>
-                                                    <a href="{{ url('product/' . Str::slug($product->productName)) }}">
+                                                    <!-- <a href="{{ url('product/' . Str::slug($product->productName)) }}">
+                                                        {{ $product->productName }}
+                                                    </a> -->
+                                                    <a href="{{ url('product/' . Str::slug(str_replace('.', '-dot-', $product->productName))) }}">
                                                         {{ $product->productName }}
                                                     </a>
                                                 </li>

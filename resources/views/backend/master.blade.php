@@ -52,6 +52,13 @@
         <script type="text/javascript" src="{{ asset('backend/js/demo.js') }}"></script>
         <script type="text/javascript" src="{{ asset('backend/js/adminlte.min.js') }}"></script>
 
+
+        <!-- Summernote Bootstrap 4 CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs4.min.css">
+
+        <!-- Load after jQuery and Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs4.min.js"></script>
+
         <script type="text/javascript">
             window.onload = function () {
                 var alert = document.querySelector('.alert');

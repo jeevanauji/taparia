@@ -325,6 +325,11 @@ $products = Products::where('isDeleted', 1)
     
     public function productDetails($productName)
     {
+        // $formattedProductName = str_replace('-', ' ', $productName);
+        // Convert the custom decimal placeholder back to a dot
+        $productName = str_replace('-dot-', '.', $productName);
+
+        // Convert remaining hyphens to spaces
         $formattedProductName = str_replace('-', ' ', $productName);
         $productInfo = Products::where('productName', $formattedProductName)->where('isDeleted', 1)->first();
         if ($productInfo) {
