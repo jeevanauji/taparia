@@ -70,15 +70,16 @@ public function products(Request $request)
             return response()->json([]);
         }
 
-        // Normalize search
-        $search = str_replace('-', ' ', $search);
-        $search = preg_replace('/\s+/', ' ', $search);
+        $search = preg_replace('/[^a-z0-9]/', '', $search);
+        if ($search === '') {
+            return response()->json([]);
+        }
 
         $results = collect();
 
         /* ---------- CATEGORY ---------- */
         $categories = Category::where('isDeleted', 1)
-            ->whereRaw('LOWER(REPLACE(name, "-", " ")) LIKE ?', ["%{$search}%"])
+            ->whereRaw('LOWER(REPLACE(REPLACE(REPLACE(name, " ", ""), "-", ""), "&", "")) LIKE ?', ["%{$search}%"])
             ->limit(5)
             ->get()
             ->map(function ($cat) {
@@ -91,7 +92,7 @@ public function products(Request $request)
 
         /* ---------- SUB CATEGORY ---------- */
         $subCategories = SubCategory::where('isDeleted', 1)
-            ->whereRaw('LOWER(REPLACE(name, "-", " ")) LIKE ?', ["%{$search}%"])
+            ->whereRaw('LOWER(REPLACE(REPLACE(REPLACE(name, " ", ""), "-", ""), "&", "")) LIKE ?', ["%{$search}%"])
             ->limit(5)
             ->get()
             ->map(function ($sub) {
@@ -104,7 +105,7 @@ public function products(Request $request)
 
         /* ---------- PRODUCT ---------- */
         $products = Products::where('isDeleted', 1)
-            ->whereRaw('LOWER(REPLACE(productName, "-", " ")) LIKE ?', ["%{$search}%"])
+            ->whereRaw('LOWER(REPLACE(REPLACE(REPLACE(productName, " ", ""), "-", ""), "&", "")) LIKE ?', ["%{$search}%"])
             ->limit(5)
             ->get()
             ->map(function ($product) {
@@ -129,14 +130,13 @@ public function products(Request $request)
        =============================== */
 
     $search = strtolower(trim($request->q));
-    $search = str_replace('-', ' ', $search);
-    $search = preg_replace('/\s+/', ' ', $search);
+    $search = preg_replace('/[^a-z0-9]/', '', $search);
 
     if ($request->has('q') && $search !== '') {
 
         // CATEGORY (PRIORITY 1)
         $cat = Category::where('isDeleted', 1)
-            ->whereRaw('LOWER(REPLACE(name, "-", " ")) LIKE ?', ["%{$search}%"])
+            ->whereRaw('LOWER(REPLACE(REPLACE(REPLACE(name, " ", ""), "-", ""), "&", "")) LIKE ?', ["%{$search}%"])
             ->first();
 
         if ($cat) {
@@ -145,7 +145,7 @@ public function products(Request $request)
 
         // SUB CATEGORY (PRIORITY 2)
         $sub = SubCategory::where('isDeleted', 1)
-            ->whereRaw('LOWER(REPLACE(name, "-", " ")) LIKE ?', ["%{$search}%"])
+            ->whereRaw('LOWER(REPLACE(REPLACE(REPLACE(name, " ", ""), "-", ""), "&", "")) LIKE ?', ["%{$search}%"])
             ->first();
 
         if ($sub) {
@@ -154,7 +154,7 @@ public function products(Request $request)
 
         // PRODUCT (PRIORITY 3)
         $product = Products::where('isDeleted', 1)
-            ->whereRaw('LOWER(REPLACE(productName, "-", " ")) LIKE ?', ["%{$search}%"])
+            ->whereRaw('LOWER(REPLACE(REPLACE(REPLACE(productName, " ", ""), "-", ""), "&", "")) LIKE ?', ["%{$search}%"])
             ->first();
 
         if ($product) {
@@ -270,7 +270,9 @@ $products = Products::where('isDeleted', 1)
         $categoryChunks = $categories->chunk(5);
         $totalCategories = $categories->count();
         
-        $subCategoryData = SubCategory::where('name', str_replace('-', ' ', $subCategoryName))->where('isDeleted', 1)->first();
+        $subCategoryData = $subCategories->first(
+            fn ($subCategory) => \Illuminate\Support\Str::slug($subCategory->name) === $subCategoryName
+        );
         if ($subCategoryData) {            
             $categoryName = Category::where('id', $subCategoryData->categoryId)->where('isDeleted', 1)->first();            
 
@@ -312,7 +314,9 @@ $products = Products::where('isDeleted', 1)
         $categoryChunks = $categories->chunk(5);
         $totalCategories = $categories->count();
 
-        $childSubCategoryData = ChildSubCategory::where('name', str_replace('-', ' ', $childSubCategoryName))->where('isDeleted', 1)->first();
+        $childSubCategoryData = $childSubCategories->first(
+            fn ($childSubCategory) => \Illuminate\Support\Str::slug($childSubCategory->name) === $childSubCategoryName
+        );
         if ($childSubCategoryData) {
             $productsByChildSubCategory = Products::where('childSubCategoryId', $childSubCategoryData->id)->where('isDeleted', 1)->get();
             $categoryName = Category::where('id', $childSubCategoryData->categoryId)->where('isDeleted', 1)->first();
@@ -534,4 +538,3 @@ public function ajaxSearch(Request $request)
 }
 
 }
-
