@@ -261,7 +261,8 @@ h4{
             font-size: 70px;
             font-weight: 600;
             margin-bottom: 10px;
-            color: var(--primary-color);
+            color: #000000;
+            /* color: var(--primary-color); */
             line-height: 1.1;
         }
         
@@ -1011,7 +1012,7 @@ ease;
     <section class="get-in-touch">
         <!-- Background Image for Full Cover Effect -->
         <div class="background-image">
-            <img src="https://tapariatools.tapariatools.com/public/frontend/images/get-in-touch-new.png" alt="Background Contact">
+            <img src="{{ asset('frontend/images/get-in-touch-new.png') }}" alt="Background Contact">
         </div>
         
         <div class="contact-container">
