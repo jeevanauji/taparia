@@ -1516,7 +1516,7 @@
                     @foreach($subCategory->products as $product)
                     <li>
                         <!-- Product link for mobile -->
-                        <a href="{{ url('product/' . \Illuminate\Support\Str::slug($product->productName)) }}">
+                        <a href="{{ url('product/' . \Illuminate\Support\Str::slug(str_replace('.', '-dot-', $product->productName))) }}">
                             {{ $product->productName }}
                         </a>
                     </li>

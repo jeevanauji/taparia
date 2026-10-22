@@ -32,9 +32,31 @@ Home
                 height: 400px !important;
             }
 
+            .videobanner,
+            #heroSlider,
+            .carousel-inner,
+            .carousel-item {
+                height: 100% !important;
+                max-height: none !important;
+            }
+
+            .hero-slide-content {
+                padding: 20px 18px;
+            }
+
+            .hero-slide-content .hero-text h2 {
+                font-size: 34px;
+                line-height: 1.15;
+            }
+
+            .hero-slide-content .hero-text p {
+                font-size: 16px;
+                line-height: 1.35;
+                margin-bottom: 18px !important;
+            }
+
             .hero-text a {
-                margin-top: 50px !important;
-                /* Less space above button */
+                margin-top: 12px !important;
             }
 
         }
@@ -272,11 +294,32 @@ Home
             z-index: 0;
         }
 
+        .hero-video-background {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+        }
+
+        .videobanner::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.32);
+            pointer-events: none;
+        }
+
         /* Carousel Styling */
         #heroSlider {
+            position: relative;
+            z-index: 2;
             width: 100%;
             max-height: calc(100vh - 112px);
-			height:100%
+			height:100%;
         }
 
         .carousel-inner,
@@ -290,7 +333,8 @@ Home
             height: 100%;
         }
 
-        .image-banner img {
+        .image-banner img,
+        .image-banner video {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -347,6 +391,39 @@ Home
             text-align: left;
         }
 
+        .hero-slide-content {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .hero-slide-content .hero-text {
+            max-width: 820px;
+            margin: 0 auto !important;
+            text-align: center !important;
+        }
+
+        .hero-slide-content .hero-text a {
+            margin-top: 15px !important;
+        }
+
+        .hero-slide-content .hero-text h2 {
+            color: #fff !important;
+            text-align: center !important;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+        }
+
+        .hero-slide-content .hero-text p {
+            color: #fff !important;
+            text-align: center !important;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+        }
+
         .hero-text {
             width: 100%;
             max-width: 650px;
@@ -358,7 +435,8 @@ Home
             font-size: 60px;
             font-weight: 600;
             margin-bottom: 10px;
-            color: var(--primary-color);
+            color: #000000;
+            /* color: var(--primary-color); */
             line-height: 1.1;
         }
 
@@ -1407,9 +1485,12 @@ Home
 
 <body>
     <div class="hero-section">
-    <!-- Banner Image -->
+    <!-- Persistent video background with three rotating content slides -->
     <div class="videobanner">
-        <div id="heroSlider" class="carousel slide">
+        <video class="hero-video-background" autoplay muted loop playsinline preload="metadata" aria-label="Taparia tools banner">
+            <source src="{{ asset('frontend/Taparia_Banner_Video_Cube_4500x2142_OCT_2026.mp4') }}" type="video/mp4">
+        </video>
+        <div id="heroSlider" class="carousel carousel-fade">
             <!-- Indicators -->
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="0" class="active"
@@ -1421,73 +1502,48 @@ Home
             <div class="carousel-inner">
                 <!-- Slide 1 -->
                 <div class="carousel-item active">
-               <div class="image-banner">
-    			<img
-        		src="{{ asset('frontend/images/slide2.jpg') }}"
-        		alt="Banner"
-        		srcset="
-            	{{ asset('frontend/images/home_mobile.jpg') }} 768w,
-            	{{ asset('frontend/images/slide2.jpg') }} 1920w"
-        		sizes="(max-width: 768px) 100vw, 1920px">
-				</div>
-
-                    <div class="bannertxts"
-                        style="width:100%; height:100% ; position:absolute; left:50%; top:30%; transform:translate(-50%, -50%);display:flex; justify-content:center; align-items:center; text-align:center; ">
-                        <div class="hero-text" style="  margin-left: 0px !important;">
-                            <h2 class="wow fadeInLeft" style="color:#fff;">Built Trusted <span
-                                    style="color:rgb(103, 100, 100);"> Nationwide </span>
-                            </h2>
-                            <p class="wow fadeInUp" data-wow-delay="0.3s"
-                                style="margin-bottom:30px; font-size:20px; color:rgb(103, 100, 100);">
+                    <div class="hero-slide-content">
+                        <div class="hero-content">
+                            <div class="hero-text">
+                                <h2>Built Trusted Nationwide</h2>
+                                <p style="margin-bottom:30px; font-size:20px;">
                                 Serving India's evolving needs with trusted tool performance
-                            </p>
-                            <a style="background:#676464; border-radius:4px; border:none;" href="#"
-                                class="btn btn-outline-primary position-relative wow fadeInRight mt-2"
-                                data-wow-delay="0.6s">
-                                Read More
-                            </a>
+                                </p>
+                                <a style="background:#676464; border-radius:4px; border:none;" href="#"
+                                    class="btn btn-outline-primary position-relative mt-2">
+                                    Read More
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- Slide 2 -->
                 <div class="carousel-item" style="position: relative;">
-                    <div class="image-banner">
-                        <img src="{{ asset('frontend/images/slide3.jpg') }}" alt="Banner" srcset="{{ asset('frontend/images/slide3.jpg') }} 1920w,
-                                 {{ asset('frontend/images/03-mobile.jpg') }} 768w"
-                            sizes="(max-width: 768px) 768px, 1920px">
-                    </div>
-                    <div class="bannertxts"
-                        style="width:100%; height:100% ; position:absolute; left:50%; top:30%; transform:translate(-50%, -50%);display:flex; justify-content:center; align-items:center; text-align:center; "">
-                    <div class=" hero-text">
-                        <h2 class="wow fadeInLeft" style="color:#fff;"> EMPOWERING INDIA'S WORKFORCE</h2>
-                        <p class="wow fadeInUp" data-wow-delay="0.3s" style="margin-bottom: 30px;color:#fff">Trusted by
-                            professionals to deliver consistent quality and strength
-                        </p>
-                        <a style="background:#676464;  border:none; border-radius: 4px;" href="#"
-                            class="btn btn-outline-primary position-relative wow fadeInRight" data-wow-delay="0.6s">
-                            Read More
-                        </a>
+                    <div class="hero-slide-content">
+                        <div class="hero-content">
+                            <div class="hero-text">
+                                <h2>EMPOWERING INDIA'S WORKFORCE</h2>
+                                <p style="margin-bottom:30px;">Trusted by professionals to deliver consistent quality and strength</p>
+                                <a style="background:#676464; border:none; border-radius:4px;" href="#"
+                                    class="btn btn-outline-primary position-relative">
+                                    Read More
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
             <!-- Slide 3 -->
             <div class="carousel-item">
-                <div class="image-banner">
-                    <img src="{{ asset('frontend/images/slide4.jpg') }}" alt="Banner" srcset="{{ asset('frontend/images/slide4.jpg') }} 1920w,
-                             {{ asset('frontend/images/02-mobile.jpg') }} 768w"
-                        sizes="(max-width: 768px) 768px, 1920px">
-                </div>
-                <div class="bannertxt">
-                    <div class="hero-text">
-                        <h2 class="wow fadeInLeft" style="color:#ffffff;font-weight:bold;" ;>
-                            SERVING
-                            INDIA <br> FOR DECADES</h2>
-                        <p class="wow fadeInUp" data-wow-delay="0.3s" style="margin-bottom:30px;color:#ffffff;text-align:left;">Tools
-                            built for India's pace Trusted <br> nationwide for performance.</p>
-                        <a style="background:#676464; border-radius: 4px;" href="#"
-                            class="btn btn-outline-primary position-relative wow fadeInRight" data-wow-delay="0.6s">
-                            Read More
-                        </a>
+                <div class="hero-slide-content">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <h2 style="font-weight:bold;">SERVING INDIA FOR DECADES</h2>
+                            <p style="margin-bottom:30px;">Tools built for India's pace, trusted nationwide for performance.</p>
+                            <a style="background:#676464; border-radius:4px;" href="#"
+                                class="btn btn-outline-primary position-relative">
+                                Read More
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1520,7 +1576,7 @@ Home
                     @endif
                     <div class="hover-section text-center">
                         <h4>
-                            <a href="{{ url('product/' . Str::slug($newproduct->productName)) }}" class="text"
+                            <a href="{{ url('product/' . Str::slug(str_replace('.', '-dot-', $newproduct->productName))) }}" class="text"
                                 style="text-decoration: none; color: #74BCC6; font-size: 16px;">
                                 {{ $newproduct->productName }}
                             </a>
@@ -1972,36 +2028,11 @@ Home
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const carousel = new bootstrap.Carousel(document.getElementById('heroSlider'), {
+    new bootstrap.Carousel(document.getElementById('heroSlider'), {
         interval: false, // STOP AUTO SLIDE
         wrap: true,
         pause: false
     });
-
-    function animateSlideElements() {
-        const activeSlide = document.querySelector('.carousel-item.active');
-        const textElements = activeSlide.querySelectorAll('.wow');
-
-        textElements.forEach(el => {
-            el.style.animation = 'none';
-            void el.offsetWidth;
-        });
-
-        setTimeout(() => {
-            textElements.forEach(el => {
-                const animationClass = Array.from(el.classList).find(cls =>
-                    cls.startsWith('fadeIn')
-                );
-                if (animationClass) {
-                    el.style.animation = `${animationClass} 1s forwards`;
-                }
-            });
-        }, 100);
-    }
-
-    document.getElementById('heroSlider').addEventListener('slid.bs.carousel', animateSlideElements);
-
-    animateSlideElements();
 });
 </script>
 

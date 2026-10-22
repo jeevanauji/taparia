@@ -1907,12 +1907,14 @@
         @if(Str::startsWith(request()->path(), 'sub-category/'))
             <li class="separator">›</li>
             <li class="breadcrumb-item">
+                @if($categoryName)
                 <a href="{{ url('category/' . Str::slug($categoryName->name)) }}">
                     <svg viewBox="0 0 24 24">
                         <path d="M22.7 19.3l-4.2-4.2c1.1-2.1.7-4.7-1.1-6.4-1.8-1.8-4.5-2.2-6.6-1l2.2 2.2-2.1 2.1-2.2-2.2c-1.2 2.1-.8 4.8 1 6.6 1.7 1.7 4.3 2.2 6.4 1.1l4.2 4.2c.4.4 1 .4 1.4 0l.9-.9c.4-.4.4-1 0-1.4z" />
                     </svg>
                     {{ ucwords(strtolower($categoryName->name)) }}
                 </a>
+                @endif
             </li>
 
             <li class="separator">›</li>
@@ -1930,23 +1932,27 @@
         @if(Str::startsWith(request()->path(), 'child-sub-category/'))
             <li class="separator">›</li>
             <li class="breadcrumb-item">
+                @if($categoryName)
                 <a href="{{ url('category/' . Str::slug($categoryName->name)) }}">
                     <svg viewBox="0 0 24 24">
                         <path d="M22.7 19.3l-4.2-4.2c1.1-2.1.7-4.7-1.1-6.4-1.8-1.8-4.5-2.2-6.6-1l2.2 2.2-2.1 2.1-2.2-2.2c-1.2 2.1-.8 4.8 1 6.6 1.7 1.7 4.3 2.2 6.4 1.1l4.2 4.2c .4 .4 1 .4 1.4 0l .9-.9c .4-.4 .4-1 0-1.4z" />
                     </svg>
                     {{ ucwords(strtolower($categoryName->name)) }}
                 </a>
+                @endif
             </li>
 
             <li class="separator">›</li>
 
             <li class="breadcrumb-item">
+                @if($subCategoryName)
                 <a href="{{ url('sub-category/' . Str::slug($subCategoryName->name)) }}">
                     <svg viewBox="0 0 24 24">
                         <path d="M22.7 19.3l-4.2-4.2c1.1-2.1.7-4.7-1.1-6.4-1.8-1.8-4.5-2.2-6.6-1l2.2 2.2-2.1 2.1-2.2-2.2c-1.2 2.1-.8 4.8 1 6.6 1.7 1.7 4.3 2.2 6.4 1.1l4.2 4.2c .4 .4 1 .4 1.4 0l .9-.9c .4-.4 .4-1 0-1.4z" />
                     </svg>
                     {{ ucwords(strtolower($subCategoryName->name)) }}
                 </a>
+                @endif
             </li>
 
             <li class="separator">›</li>
@@ -2014,8 +2020,8 @@
                                                                     <ul>
                                                                         @foreach ($subCategoryProducts as $product)
                                                                             <li>
-                                                                                <a href="{{ url('product/' . Str::slug($product->productName)) }}"
-                                                                                    class="{{ request()->is('product/' . Str::slug($product->productName)) ? 'active-link' : '' }}">
+                                                                                <a href="{{ url('product/' . Str::slug(str_replace('.', '-dot-', $product->productName))) }}"
+                                                                                    class="{{ request()->is('product/' . Str::slug(str_replace('.', '-dot-', $product->productName))) ? 'active-link' : '' }}">
                                                                                     {{ $product->productName }}
                                                                                 </a>
                                                                             </li>
@@ -2033,8 +2039,8 @@
                                                     <ul>
                                                         @foreach ($categoryProducts as $product)
                                                             <li>
-                                                                <a href="{{ url('product/' . Str::slug($product->productName)) }}"
-                                                                    class="{{ request()->is('product/' . Str::slug($product->productName)) ? 'active-link' : '' }}">
+                                                                <a href="{{ url('product/' . Str::slug(str_replace('.', '-dot-', $product->productName))) }}"
+                                                                    class="{{ request()->is('product/' . Str::slug(str_replace('.', '-dot-', $product->productName))) ? 'active-link' : '' }}">
                                                                     {{ $product->productName }}
                                                                 </a>
                                                             </li>
@@ -2086,6 +2092,26 @@
                             @endforeach
 
                             @php } elseif (Str::startsWith(request()->path(), 'sub-category/')) { @endphp
+                            @if (count($childSubCategoriesWithProducts) === 0)
+                                <div class="col-md-6 mt-3 mt-md-0 pb-3" style="width:100%">
+                                    <div class="product-list-box">
+                                        <div class="subcateLists">
+                                            <h4>{{ $titleName }}</h4>
+                                            <ul class="list-unstyled">
+                                                @forelse ($productsBySubCategory as $subCategoryProduct)
+                                                    <li>
+                                                        <a href="{{ url('product/' . Str::slug(str_replace('.', '-dot-', $subCategoryProduct->productName))) }}">
+                                                            {{ $subCategoryProduct->productName }}
+                                                        </a>
+                                                    </li>
+                                                @empty
+                                                    <li>No products found.</li>
+                                                @endforelse
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            @else
                             @foreach ($childSubCategoriesWithProducts as $index => $childSubCategoryData)
                                 <div class="col-md-6 mt-3 mt-md-0 pb-3" style="width:100%">
                                     <div class="product-list-box">
@@ -2119,7 +2145,7 @@
                                                                     <ul class="list-unstyled">
                                                                         @foreach ($productChunk as $childSubCategoryProduct)
                                                                             <li>
-                                                                                <a href="{{ url('product/' . Str::slug($childSubCategoryProduct->productName)) }}"
+                                                                                <a href="{{ url('product/' . Str::slug(str_replace('.', '-dot-', $childSubCategoryProduct->productName))) }}"
                                                                                     style="white-space: nowrap;">
                                                                                     {{ $childSubCategoryProduct->productName }}
                                                                                 </a>
@@ -2147,6 +2173,7 @@
                                     </div>
                                 </div>
                             @endforeach
+                            @endif
 
                             @php } elseif (Str::startsWith(request()->path(), 'child-sub-category/')) { @endphp
                             <div class="col-md-6 mt-3 mt-md-0 pb-3" style="width:100%">
@@ -2162,7 +2189,7 @@
                                                 @foreach ($productsByChildSubCategory as $childSubCategoryProduct)
                                                     <li>
                                                         <a
-                                                            href="{{ url('product/' . Str::slug($childSubCategoryProduct->productName)) }}">
+                                                            href="{{ url('product/' . Str::slug(str_replace('.', '-dot-', $childSubCategoryProduct->productName))) }}">
                                                             {{ $childSubCategoryProduct->productName }}
                                                         </a>
                                                     </li>

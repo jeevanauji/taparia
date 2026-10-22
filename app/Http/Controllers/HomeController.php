@@ -282,6 +282,11 @@ $products = Products::where('isDeleted', 1)
                 ->where('isDeleted', 1)
                 ->get();
 
+            // Some subcategories contain products directly without child subcategories.
+            $productsBySubCategory = Products::where('subCategoryId', $subCategoryData->id)
+                ->where('isDeleted', 1)
+                ->get();
+
             foreach ($childSubCategoriesBySubCategory as $childSubCategory) {
                 $productsData = Products::where('childSubCategoryId', $childSubCategory->id)
                     ->where('isDeleted', 1)
@@ -292,7 +297,7 @@ $products = Products::where('isDeleted', 1)
                     'productsBychildSubCategory' => $productsData,
                 ];
             }
-            return view('frontend.products', compact('categories', 'subCategories', 'childSubCategories', 'products', 'categoryName', 'childSubCategoriesWithProducts', 'categoryChunks', 'totalCategories'));
+            return view('frontend.products', compact('categories', 'subCategories', 'childSubCategories', 'products', 'categoryName', 'childSubCategoriesWithProducts', 'productsBySubCategory', 'categoryChunks', 'totalCategories'));
         } else {
             return redirect('products');
         }
@@ -329,13 +334,14 @@ $products = Products::where('isDeleted', 1)
     
     public function productDetails($productName)
     {
-        // $formattedProductName = str_replace('-', ' ', $productName);
-        // Convert the custom decimal placeholder back to a dot
-        $productName = str_replace('-dot-', '.', $productName);
-
-        // Convert remaining hyphens to spaces
-        $formattedProductName = str_replace('-', ' ', $productName);
-        $productInfo = Products::where('productName', $formattedProductName)->where('isDeleted', 1)->first();
+        // Preserve decimal points in canonical URLs so names such as 0.50 and 050
+        // remain distinct. Fall back to the older plain slug format for existing links.
+        $activeProducts = Products::where('isDeleted', 1)->get();
+        $productInfo = $activeProducts->first(fn ($product) =>
+            \Illuminate\Support\Str::slug(str_replace('.', '-dot-', $product->productName)) === $productName
+        ) ?? $activeProducts->first(fn ($product) =>
+            \Illuminate\Support\Str::slug($product->productName) === $productName
+        );
         if ($productInfo) {
             $productImages = ProductImages::where('productId', $productInfo->id)->where('isDeleted', 1)->get();  
            
