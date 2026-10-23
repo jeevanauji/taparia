@@ -1426,7 +1426,7 @@
 									
                                         <!-- LEVEL 1 -->
 
-                                        <a href="{{ url('category/' . Str::slug($category->name)) }}"
+                                        <a href="{{ url($category->public_url) }}"
                                             class="mega-menu-header">
                                             <span>{{ $category->name }}</span>
                                             @if($category->subCategories && $category->subCategories->count())
@@ -1442,7 +1442,7 @@
                                                 @foreach($category->subCategories as $subCategory)
                                                 <li class="subcategory-item" data-sub-id="{{ $subCategory->id }}">
                                                     <a
-                                                        href="{{ url('sub-category/' . Str::slug($subCategory->name)) }}">
+                                                        href="{{ url($subCategory->public_url) }}">
                                                         {{ $subCategory->name }}
                                                         @if($subCategory->products && $subCategory->products->count())
                                                         <i class="fas fa-chevron-right"
@@ -1466,7 +1466,7 @@
                                                     <!-- <a href="{{ url('product/' . Str::slug($product->productName)) }}">
                                                         {{ $product->productName }}
                                                     </a> -->
-                                                    <a href="{{ url('product/' . Str::slug(str_replace('.', '-dot-', $product->productName))) }}">
+                                                    <a href="{{ url($product->public_url) }}">
                                                         {{ $product->productName }}
                                                     </a>
                                                 </li>
@@ -1494,7 +1494,7 @@
         <div class="dropdown-item category-toggle-mobile"
             data-category="{{ \Illuminate\Support\Str::slug($category->name) }}">
             <!-- Add clickable link for category -->
-            <a href="{{ url('category/' . \Illuminate\Support\Str::slug($category->name)) }}" 
+            <a href="{{ url($category->public_url) }}" 
                class="mobile-category-link">
                 <span>{{ $category->name }}</span>
             </a>
@@ -1506,7 +1506,7 @@
                 @if($subCategory->products && $subCategory->products->count())
                 <div class="subcategory-toggle-mobile" data-subcategory="{{ \Illuminate\Support\Str::slug($subCategory->name) }}">
                     <!-- Add clickable link for subcategory -->
-                    <a href="{{ url('sub-category/' . \Illuminate\Support\Str::slug($subCategory->name)) }}"
+                    <a href="{{ url($subCategory->public_url) }}"
                        class="mobile-subcategory-link">
                         <span>{{ $subCategory->name }}</span>
                     </a>
@@ -1516,7 +1516,7 @@
                     @foreach($subCategory->products as $product)
                     <li>
                         <!-- Product link for mobile -->
-                        <a href="{{ url('product/' . \Illuminate\Support\Str::slug(str_replace('.', '-dot-', $product->productName))) }}">
+                        <a href="{{ url($product->public_url) }}">
                             {{ $product->productName }}
                         </a>
                     </li>
@@ -1525,7 +1525,7 @@
                 @else
                 <!-- Subcategory link for mobile (when no products) -->
                 <a class="dropdown-item"
-                    href="{{ url('sub-category/' . \Illuminate\Support\Str::slug($subCategory->name)) }}">
+                    href="{{ url($subCategory->public_url) }}">
                     {{ $subCategory->name }}
                 </a>
                 @endif
@@ -1538,7 +1538,7 @@
         @else
         <!-- Category link for mobile (when no subcategories) -->
         <a class="dropdown-item"
-            href="{{ url('category/' . \Illuminate\Support\Str::slug($category->name)) }}">
+            href="{{ url($category->public_url) }}">
             {{ $category->name }}
         </a>
         @endif

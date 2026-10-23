@@ -18,13 +18,13 @@ class HomeController extends Controller
     public function index()
 {
     $newProducts = Products::where('isNew', 'Y')
-        ->where('isDeleted', 1)
+        ->where('isDeleted', 0)
         ->whereNotNull('productImage')
         ->orderBy('created_at', 'ASC')
         ->get();
     
     // Order categories by orderStatus
-    $categories = Category::where('isDeleted', 1)
+    $categories = Category::where('isDeleted', 0)
         ->orderBy('orderstatus', 'ASC')
         ->get();
         
@@ -35,7 +35,7 @@ class HomeController extends Controller
     foreach ($categories as $category) {
         $products = Products::where('categoryId', $category->id)
             ->where('isNew', 'N')
-            ->where('isDeleted', 1)
+            ->where('isDeleted', 0)
             ->orderBy('created_at', 'ASC')
             ->take(6)
             ->get();
@@ -58,15 +58,15 @@ class HomeController extends Controller
     
     public function products()
     {
-        $categories = Category::where('isDeleted', 1)
+        $categories = Category::where('isDeleted', 0)
             ->orderBy('orderStatus', 'ASC')
             ->get();
 
-        $subCategories = SubCategory::where('isDeleted', 1)
+        $subCategories = SubCategory::where('isDeleted', 0)
             ->orderBy('orderStatus', 'ASC')
             ->get();
-        $childSubCategories = ChildSubCategory::where('isDeleted', 1)->get();
-        $products = Products::where('isDeleted', 1)->get();
+        $childSubCategories = ChildSubCategory::where('isDeleted', 0)->get();
+        $products = Products::where('isDeleted', 0)->get();
 
         // Chunk categories into groups of 5
         $categoryChunks = $categories->chunk(5);
@@ -77,35 +77,35 @@ class HomeController extends Controller
     
    public function category($categoryName)
 {
-    $categories = Category::where('isDeleted', 1)
+    $categories = Category::where('isDeleted', 0)
         ->orderBy('orderStatus', 'ASC')
         ->get();
 
-    $subCategories = SubCategory::where('isDeleted', 1)
+    $subCategories = SubCategory::where('isDeleted', 0)
         ->orderBy('orderStatus', 'ASC')
         ->get();
 
-    $childSubCategories = ChildSubCategory::where('isDeleted', 1)->get();
-    $products = Products::where('isDeleted', 1)->get();
+    $childSubCategories = ChildSubCategory::where('isDeleted', 0)->get();
+    $products = Products::where('isDeleted', 0)->get();
     
     // Chunk categories into groups of 5
     $categoryChunks = $categories->chunk(5);
     $totalCategories = $categories->count();
     
     $categoryId = Category::where('name', str_replace('-', ' ', $categoryName))
-        ->where('isDeleted', 1)
+        ->where('isDeleted', 0)
         ->first();        
 
     if ($categoryId) {
         $subCategoriesByCategory = SubCategory::where('categoryId', $categoryId->id)
-            ->where('isDeleted', 1)
+            ->where('isDeleted', 0)
             ->orderBy('orderStatus', 'ASC')
             ->get();
 
         $subCategoriesWithChildSubCategories = [];
         foreach ($subCategoriesByCategory as $subCategory) {
             $childSubCategoriesBySubCategoryData = ChildSubCategory::where('subCategoryId', $subCategory->id)
-                ->where('isDeleted', 1)
+                ->where('isDeleted', 0)
                 ->orderBy('created_at', 'ASC')
                 ->get(); // Removed ->take(30)
 
@@ -139,34 +139,34 @@ class HomeController extends Controller
 
     public function subCategory($subCategoryName)
     {
-        $categories = Category::where('isDeleted', 1)
+        $categories = Category::where('isDeleted', 0)
             ->orderBy('orderStatus', 'ASC')
             ->get();
 
-        $subCategories = SubCategory::where('isDeleted', 1)
+        $subCategories = SubCategory::where('isDeleted', 0)
             ->orderBy('orderStatus', 'ASC')
             ->get();
 
-        $childSubCategories = ChildSubCategory::where('isDeleted', 1)->get();
-        $products = Products::where('isDeleted', 1)->get();
+        $childSubCategories = ChildSubCategory::where('isDeleted', 0)->get();
+        $products = Products::where('isDeleted', 0)->get();
         
         // Chunk categories into groups of 5
         $categoryChunks = $categories->chunk(5);
         $totalCategories = $categories->count();
         
-        $subCategoryData = SubCategory::where('name', str_replace('-', ' ', $subCategoryName))->where('isDeleted', 1)->first();
+        $subCategoryData = SubCategory::where('name', str_replace('-', ' ', $subCategoryName))->where('isDeleted', 0)->first();
         if ($subCategoryData) {            
-            $categoryName = Category::where('id', $subCategoryData->categoryId)->where('isDeleted', 1)->first();            
+            $categoryName = Category::where('id', $subCategoryData->categoryId)->where('isDeleted', 0)->first();            
 
             $childSubCategoriesWithProducts = [];
 
             $childSubCategoriesBySubCategory = ChildSubCategory::where('subCategoryId', $subCategoryData->id)
-                ->where('isDeleted', 1)
+                ->where('isDeleted', 0)
                 ->get();
 
             foreach ($childSubCategoriesBySubCategory as $childSubCategory) {
                 $productsData = Products::where('childSubCategoryId', $childSubCategory->id)
-                    ->where('isDeleted', 1)
+                    ->where('isDeleted', 0)
                     ->get();
 
                 $childSubCategoriesWithProducts[] = [
@@ -182,25 +182,25 @@ class HomeController extends Controller
     
     public function childSubCategory($childSubCategoryName)
     {
-        $categories = Category::where('isDeleted', 1)
+        $categories = Category::where('isDeleted', 0)
             ->orderBy('orderStatus', 'ASC')
             ->get();
 
-        $subCategories = SubCategory::where('isDeleted', 1)
+        $subCategories = SubCategory::where('isDeleted', 0)
             ->orderBy('orderStatus', 'ASC')
             ->get();
-        $childSubCategories = ChildSubCategory::where('isDeleted', 1)->get();
-        $products = Products::where('isDeleted', 1)->get();
+        $childSubCategories = ChildSubCategory::where('isDeleted', 0)->get();
+        $products = Products::where('isDeleted', 0)->get();
 
         // Chunk categories into groups of 5
         $categoryChunks = $categories->chunk(5);
         $totalCategories = $categories->count();
 
-        $childSubCategoryData = ChildSubCategory::where('name', str_replace('-', ' ', $childSubCategoryName))->where('isDeleted', 1)->first();
+        $childSubCategoryData = ChildSubCategory::where('name', str_replace('-', ' ', $childSubCategoryName))->where('isDeleted', 0)->first();
         if ($childSubCategoryData) {
-            $productsByChildSubCategory = Products::where('childSubCategoryId', $childSubCategoryData->id)->where('isDeleted', 1)->get();
-            $categoryName = Category::where('id', $childSubCategoryData->categoryId)->where('isDeleted', 1)->first();
-            $subCategoryName = SubCategory::where('id', $childSubCategoryData->subCategoryId)->where('isDeleted', 1)->first();
+            $productsByChildSubCategory = Products::where('childSubCategoryId', $childSubCategoryData->id)->where('isDeleted', 0)->get();
+            $categoryName = Category::where('id', $childSubCategoryData->categoryId)->where('isDeleted', 0)->first();
+            $subCategoryName = SubCategory::where('id', $childSubCategoryData->subCategoryId)->where('isDeleted', 0)->first();
             return view('frontend.products', compact('categories', 'subCategories', 'childSubCategories', 'products', 'categoryName', 'subCategoryName', 'childSubCategoryData', 'productsByChildSubCategory', 'categoryChunks', 'totalCategories'));
         } else {
             return redirect('products');
@@ -211,9 +211,9 @@ class HomeController extends Controller
     {
         $productName = str_replace('-dot-', '.', $productName);
         $formattedProductName = str_replace('-', ' ', $productName);
-        $productInfo = Products::where('productName', $formattedProductName)->where('isDeleted', 1)->first();
+        $productInfo = Products::where('productName', $formattedProductName)->where('isDeleted', 0)->first();
         if ($productInfo) {
-            $productImages = ProductImages::where('productId', $productInfo->id)->where('isDeleted', 1)->get();  
+            $productImages = ProductImages::where('productId', $productInfo->id)->where('isDeleted', 0)->get();  
            
             // return view('frontend.product-details', compact('productInfo', 'productImages'));
         } else {
@@ -238,7 +238,7 @@ class HomeController extends Controller
 
         $reports = ReportsAndDownloads::where('contentType', $formattedContentType)
 
-            ->where('isDeleted', 1)
+            ->where('isDeleted', 0)
 
             ->orderBy('created_at', 'desc')
 
@@ -250,7 +250,7 @@ class HomeController extends Controller
 
         $years = ReportsAndDownloads::where('contentType', $formattedContentType)
 
-            ->where('isDeleted', 1)
+            ->where('isDeleted', 0)
 
             ->select(DB::raw('YEAR(created_at) as year'))
 
@@ -282,13 +282,13 @@ class HomeController extends Controller
     {
         // Get downloads
         $downloads = ReportsAndDownloads::where('contentType', 'Downloads')
-            ->where('isDeleted', 1)
+            ->where('isDeleted', 0)
             ->orderBy('created_at', 'desc')
             ->get();
 
         // Get unique years from created_at
         $years = ReportsAndDownloads::where('contentType', 'Downloads')
-            ->where('isDeleted', 1)
+            ->where('isDeleted', 0)
             ->select(DB::raw('YEAR(created_at) as year'))
             ->distinct()
             ->orderBy('year', 'desc')

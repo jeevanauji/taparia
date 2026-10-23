@@ -12,9 +12,9 @@ class ChildSubCategoryController extends Controller
     public function index()
     {
         // Get all data from the database
-        $categories = Category::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
-        $subCategories = SubCategory::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
-        $childSubCategories = ChildSubCategory::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
+        $categories = Category::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
+        $subCategories = SubCategory::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
+        $childSubCategories = ChildSubCategory::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
         return view('backend.childsubcategory.index', compact('categories', 'subCategories', 'childSubCategories'));
     }
    
@@ -54,8 +54,8 @@ class ChildSubCategoryController extends Controller
     
     public function edit($id)
     {
-        $categories = Category::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
-        $subCategories = SubCategory::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
+        $categories = Category::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
+        $subCategories = SubCategory::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
         $childSubCategory = ChildSubCategory::findOrFail($id);
         return view('backend.childsubcategory.edit', compact('categories', 'subCategories', 'childSubCategory'));
     }
@@ -95,7 +95,7 @@ class ChildSubCategoryController extends Controller
     public function softDelete($id)
     {
         $childSubCategory = ChildSubCategory::findOrFail($id);
-        $childSubCategory->update(['isDeleted' => '0']);
+        $childSubCategory->update(['isDeleted' => '1']);
     
         if ($childSubCategory) {
             return redirect()->route('childsubcategory.index')->with('success', 'Sub Category successfully deleted!');

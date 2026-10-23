@@ -97,10 +97,12 @@ Categories
                             <i class="fas fa-edit"></i> <!-- Edit icon -->
                         </a>
 
-                        <!-- Delete Button -->                          
-                        <a href="{{ url('admin/category/delete/' . $category->id) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger btn-sm">
-                            <i class="fas fa-trash"></i>
-                        </a>                          
+                        <form action="{{ route('category.toggle', $category->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="catalog-status-toggle {{ (int) $category->isDeleted === 0 ? 'is-active' : 'is-inactive' }}" aria-label="{{ (int) $category->isDeleted === 0 ? 'Active. Click to deactivate category and connected items.' : 'Inactive. Click to activate category and connected items.' }}" title="{{ (int) $category->isDeleted === 0 ? 'Active' : 'Inactive' }}">
+                                <span class="toggle-knob" aria-hidden="true"></span>
+                            </button>
+                        </form>
                     </td>
 
                     <!-- Actions for edit and delete can be added here -->

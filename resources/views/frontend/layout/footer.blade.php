@@ -43,11 +43,11 @@
                         <ul class="list-unstyled footerlinks">
                             @php
                                 use App\Models\Category;
-                                $categoriesData = Category::where('isDeleted', 1)->orderBy('id', 'ASC')->get();
+                                $categoriesData = Category::where('isDeleted', 0)->orderBy('id', 'ASC')->get();
                             @endphp
                             @foreach ($categoriesData as $footerCategory)
                             <li>
-                                <a href="{{ url('category/' . Str::slug($footerCategory->name)) }}">
+                                <a href="{{ url($footerCategory->public_url) }}">
                                     {{ ucwords(strtolower($footerCategory->name)) }}
                                 </a>
                             </li>

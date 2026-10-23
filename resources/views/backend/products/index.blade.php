@@ -70,9 +70,12 @@ Products
                             <a href="javascript:void(0);" class="btn btn-primary btn-sm" onclick="getProductInfo({{ $product->id }});">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="{{ url('admin/product/delete/' . $product->id) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            <form action="{{ route('product.toggle', $product->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="catalog-status-toggle {{ (int) $product->isDeleted === 0 ? 'is-active' : 'is-inactive' }}" aria-label="{{ (int) $product->isDeleted === 0 ? 'Active. Click to deactivate product.' : 'Inactive. Click to activate product.' }}" title="{{ (int) $product->isDeleted === 0 ? 'Active' : 'Inactive' }}">
+                                    <span class="toggle-knob" aria-hidden="true"></span>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

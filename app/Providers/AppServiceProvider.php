@@ -46,13 +46,14 @@ class AppServiceProvider extends ServiceProvider
 
                         // LEVEL 2: Sub Categories
                         'subCategories' => function ($q) {
-                            $q->where('isDeleted', 1)
+                            $q->where('isDeleted', 0)
                               ->orderBy('orderStatus', 'ASC');
                         },
 
                         // LEVEL 3: Products (FINAL ORDER FIX)
                         'subCategories.products' => function ($q) {
-                            $q->where('isDeleted', 1)
+                            $q->where('isDeleted', 0)
+                              ->with(['category', 'subCategory.category'])
                               ->orderBy('childSubCategoryId', 'ASC')
                               ->orderBy('id', 'ASC');
                         },
@@ -60,9 +61,16 @@ class AppServiceProvider extends ServiceProvider
                        
 
                     ])
-                    ->where('isDeleted', 1)
+                    ->where('isDeleted', 0)
                     ->orderBy('orderstatus', 'ASC') // LEVEL 1: Categories
                     ->get();
+
+                    $catalogOrder = app(\App\Services\CatalogOrderService::class);
+                    foreach ($categories as $category) {
+                        foreach ($category->subCategories as $subCategory) {
+                            $subCategory->setRelation('products', $catalogOrder->sortProducts($subCategory->products));
+                        }
+                    }
 
                     $view->with('categories', $categories);
                 });

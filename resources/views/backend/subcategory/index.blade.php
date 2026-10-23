@@ -114,10 +114,12 @@ Sub Categories
                                 <i class="fas fa-edit"></i> <!-- Edit icon -->
                             </a>
 
-                            <!-- Delete Button -->                          
-                            <a href="{{ url('admin/subcategory/delete/' . $subcategory->id) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>       
+                            <form action="{{ route('subcategory.toggle', $subcategory->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="catalog-status-toggle {{ (int) $subcategory->isDeleted === 0 ? 'is-active' : 'is-inactive' }}" aria-label="{{ (int) $subcategory->isDeleted === 0 ? 'Active. Click to deactivate subcategory and connected items.' : 'Inactive. Click to activate subcategory and connected items.' }}" title="{{ (int) $subcategory->isDeleted === 0 ? 'Active' : 'Inactive' }}">
+                                    <span class="toggle-knob" aria-hidden="true"></span>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

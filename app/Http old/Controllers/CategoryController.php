@@ -10,7 +10,7 @@ class CategoryController extends Controller
     public function index()
     {
         // Get all categories from the database
-        $categories = Category::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
+        $categories = Category::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
         return view('backend.category.index', compact('categories'));
     }
 
@@ -83,7 +83,7 @@ class CategoryController extends Controller
     public function softDelete($id)
     {
         $category = Category::findOrFail($id);
-        $category->update(['isDeleted' => '0']);
+        $category->update(['isDeleted' => '1']);
     
         if ($category) {
             return redirect()->route('category.index')->with('success', 'Category successfully deleted!');

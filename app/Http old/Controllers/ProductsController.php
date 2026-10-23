@@ -13,15 +13,15 @@ class ProductsController extends Controller
 {
     public function index()
     {
-        $products = Products::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
+        $products = Products::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
         return view('backend.products.index', compact('products'));
     }
 
     public function create()
     {
-        $categories = Category::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
-        $subCategories = SubCategory::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
-        $childSubCategories = ChildSubCategory::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
+        $categories = Category::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
+        $subCategories = SubCategory::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
+        $childSubCategories = ChildSubCategory::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
         return view('backend.products.create', compact('categories', 'subCategories', 'childSubCategories'));
     }
 
@@ -101,11 +101,11 @@ class ProductsController extends Controller
 
     public function edit($id)
     {
-        $categories = Category::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
-        $subCategories = SubCategory::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
-        $childSubCategories = ChildSubCategory::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
+        $categories = Category::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
+        $subCategories = SubCategory::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
+        $childSubCategories = ChildSubCategory::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
         $productInfo = Products::findOrFail($id);
-        $productImages = ProductImages::where('productId', $id)->where('isDeleted', 1)->get();
+        $productImages = ProductImages::where('productId', $id)->where('isDeleted', 0)->get();
         return view('backend.products.edit', compact('categories', 'subCategories', 'childSubCategories', 'productInfo', 'productImages'));
     }
 
@@ -190,7 +190,7 @@ class ProductsController extends Controller
     public function productImageSoftDelete($id)
     {
         $productImages = ProductImages::findOrFail($id);
-        $productImages->update(['isDeleted' => '0']);
+        $productImages->update(['isDeleted' => '1']);
 
         if ($productImages) {
             return redirect()->route('product.edit', ['id' => $productImages->productId])->with('success', 'Product image successfully deleted!');
@@ -202,9 +202,9 @@ class ProductsController extends Controller
     public function softDelete($id)
     {
         $product = Products::findOrFail($id);
-        $product->update(['isDeleted' => '0']);
+        $product->update(['isDeleted' => '1']);
 
-        $productImages = ProductImages::where('productId', $id)->update(['isDeleted' => '0']);
+        $productImages = ProductImages::where('productId', $id)->update(['isDeleted' => '1']);
 
         if ($product && $productImages) {
             return redirect()->route('products.index')->with('success', 'Product successfully deleted!');

@@ -10,7 +10,7 @@ class ChildSubCategory extends Model
     use HasFactory;
     
     protected $table = 'childsubcategories'; 
-    protected $fillable = ['categoryId', 'subCategoryId', 'name', 'childSubCategoryImage', 'isDeleted'];    
+    protected $fillable = ['categoryId', 'subCategoryId', 'name', 'childSubCategoryImage', 'isDeleted', 'orderStatus'];    
     
     public function category()
     {

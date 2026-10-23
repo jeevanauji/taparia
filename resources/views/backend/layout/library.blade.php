@@ -20,6 +20,47 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
  
 <style type="text/css">
+    .catalog-status-toggle {
+        position: relative;
+        display: inline-block;
+        width: 42px;
+        height: 24px;
+        padding: 0;
+        border: 0;
+        border-radius: 999px;
+        vertical-align: middle;
+        cursor: pointer;
+        transition: background-color .2s ease;
+    }
+
+    .catalog-status-toggle.is-active {
+        background-color: #28a745;
+    }
+
+    .catalog-status-toggle.is-inactive {
+        background-color: #dc3545;
+    }
+
+    .catalog-status-toggle .toggle-knob {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #fff;
+        transition: transform .2s ease;
+    }
+
+    .catalog-status-toggle.is-active .toggle-knob {
+        transform: translateX(18px);
+    }
+
+    .catalog-status-toggle:focus-visible {
+        outline: 2px solid #007bff;
+        outline-offset: 2px;
+    }
+
     /* Center the alert on the screen */
     .alert-container {
         position: fixed;

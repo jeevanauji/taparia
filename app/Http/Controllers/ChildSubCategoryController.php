@@ -6,15 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\Category; 
 use App\Models\SubCategory; 
 use App\Models\ChildSubCategory; 
+use App\Services\CatalogStatusService;
+use App\Services\CatalogOrderService;
 
 class ChildSubCategoryController extends Controller
 {
     public function index()
     {
         // Get all data from the database
-        $categories = Category::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
-        $subCategories = SubCategory::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
-        $childSubCategories = ChildSubCategory::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
+        $categories = Category::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
+        $subCategories = SubCategory::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
+        $childSubCategories = ChildSubCategory::orderBy('id')->get();
+        $childSubCategories = app(CatalogOrderService::class)->sortItems('childsubcategory', $childSubCategories);
         return view('backend.childsubcategory.index', compact('categories', 'subCategories', 'childSubCategories'));
     }
    
@@ -37,12 +40,17 @@ class ChildSubCategoryController extends Controller
             $childSubCategoryImage = '';
         }
         
-        $storeChildSubcategory = ChildSubCategory::create([
+        $childSubCategoryData = [
             'categoryId' => $request->input('categoryId'),
             'subCategoryId' => $request->input('subCategoryId'),
             'name' => $request->input('childSubCategoryName'),
             'childSubCategoryImage' => $childSubCategoryImage,
-        ]);
+        ];
+        $catalogOrder = app(CatalogOrderService::class);
+        if ($catalogOrder->hasOrderStatus('childsubcategory')) {
+            $childSubCategoryData['orderStatus'] = ((int) ChildSubCategory::max('orderStatus')) + 1;
+        }
+        $storeChildSubcategory = ChildSubCategory::create($childSubCategoryData);
     
         // Redirect to the subcategory page with a success message
         if ($storeChildSubcategory) {
@@ -54,8 +62,8 @@ class ChildSubCategoryController extends Controller
     
     public function edit($id)
     {
-        $categories = Category::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
-        $subCategories = SubCategory::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
+        $categories = Category::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
+        $subCategories = SubCategory::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
         $childSubCategory = ChildSubCategory::findOrFail($id);
         return view('backend.childsubcategory.edit', compact('categories', 'subCategories', 'childSubCategory'));
     }
@@ -94,13 +102,16 @@ class ChildSubCategoryController extends Controller
     
     public function softDelete($id)
     {
-        $childSubCategory = ChildSubCategory::findOrFail($id);
-        $childSubCategory->update(['isDeleted' => '0']);
-    
-        if ($childSubCategory) {
-            return redirect()->route('childsubcategory.index')->with('success', 'Sub Category successfully deleted!');
-        } else {
-            return redirect()->route('childsubcategory.index')->with('error', 'Failed to delete the sub category. Please try again.');
-        }
+        app(CatalogStatusService::class)->setChildSubCategoryStatus((int) $id, 1);
+        return redirect()->route('childsubcategory.index')->with('success', 'Child category and connected products set to inactive.');
+    }
+
+    public function toggleStatus($id)
+    {
+        $status = app(CatalogStatusService::class)->toggleChildSubCategory((int) $id);
+        $message = $status === 0
+            ? 'Child category and connected products activated.'
+            : 'Child category and connected products set to inactive.';
+        return redirect()->route('childsubcategory.index')->with('success', $message);
     }
 }

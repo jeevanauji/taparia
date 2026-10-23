@@ -1576,7 +1576,7 @@ Home
                     @endif
                     <div class="hover-section text-center">
                         <h4>
-                            <a href="{{ url('product/' . Str::slug(str_replace('.', '-dot-', $newproduct->productName))) }}" class="text"
+                            <a href="{{ url($newproduct->public_url) }}" class="text"
                                 style="text-decoration: none; color: #74BCC6; font-size: 16px;">
                                 {{ $newproduct->productName }}
                             </a>

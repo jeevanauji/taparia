@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category; 
 use App\Models\SubCategory; 
+use App\Services\CatalogStatusService;
 
 class SubCategoryController extends Controller
 {
     public function index()
     {
         // Get all categories from the database
-        $categories = Category::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
-        $subCategories = SubCategory::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
+        $categories = Category::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
+        $subCategories = SubCategory::orderBy('orderStatus')->orderBy('id')->get();
         return view('backend.subcategory.index', compact('categories', 'subCategories'));
     }
 
@@ -39,6 +40,7 @@ class SubCategoryController extends Controller
             'categoryId' => $request->input('category_id'), // Store the categoryId
             'name' => $request->input('name'), // Store the subcategory name
             'subCategoryImage' => $subCategoryImage,
+            'orderStatus' => ((int) SubCategory::max('orderStatus')) + 1,
         ]);
     
         // Redirect to the subcategory page with a success message
@@ -51,7 +53,7 @@ class SubCategoryController extends Controller
     
     public function edit($id)
     {
-        $categories = Category::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
+        $categories = Category::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
         $subCategory = SubCategory::findOrFail($id);
         return view('backend.subcategory.edit', compact('categories', 'subCategory'));
     }
@@ -88,13 +90,16 @@ class SubCategoryController extends Controller
     
     public function softDelete($id)
     {
-        $subCategory = SubCategory::findOrFail($id);
-        $subCategory->update(['isDeleted' => '0']);
-    
-        if ($subCategory) {
-            return redirect()->route('subcategory.index')->with('success', 'Sub Category successfully deleted!');
-        } else {
-            return redirect()->route('subcategory.index')->with('error', 'Failed to delete the sub category. Please try again.');
-        }
+        app(CatalogStatusService::class)->setSubCategoryStatus((int) $id, 1);
+        return redirect()->route('subcategory.index')->with('success', 'Subcategory and connected catalog items set to inactive.');
     }   
+
+    public function toggleStatus($id)
+    {
+        $status = app(CatalogStatusService::class)->toggleSubCategory((int) $id);
+        $message = $status === 0
+            ? 'Subcategory and connected catalog items activated.'
+            : 'Subcategory and connected catalog items set to inactive.';
+        return redirect()->route('subcategory.index')->with('success', $message);
+    }
 }

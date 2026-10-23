@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category; 
+use App\Services\CatalogStatusService;
 
 class CategoryController extends Controller
 {
     public function index()
     {
         // Get all categories from the database
-        $categories = Category::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
+        $categories = Category::orderBy('orderStatus')->orderBy('id')->get();
         return view('backend.category.index', compact('categories'));
     }
 
@@ -36,6 +37,7 @@ class CategoryController extends Controller
         $storeCategory = Category::create([
             'name' => $request->input('name'),
             'categoryImage' => $categoryImage,
+            'orderStatus' => ((int) Category::max('orderStatus')) + 1,
         ]);
 
         // Redirect to the category page with message
@@ -82,13 +84,16 @@ class CategoryController extends Controller
     
     public function softDelete($id)
     {
-        $category = Category::findOrFail($id);
-        $category->update(['isDeleted' => '0']);
-    
-        if ($category) {
-            return redirect()->route('category.index')->with('success', 'Category successfully deleted!');
-        } else {
-            return redirect()->route('category.index')->with('error', 'Failed to delete the category. Please try again.');
-        }
+        app(CatalogStatusService::class)->setCategoryStatus((int) $id, 1);
+        return redirect()->route('category.index')->with('success', 'Category and connected catalog items set to inactive.');
     }    
+
+    public function toggleStatus($id)
+    {
+        $status = app(CatalogStatusService::class)->toggleCategory((int) $id);
+        $message = $status === 0
+            ? 'Category and connected catalog items activated.'
+            : 'Category and connected catalog items set to inactive.';
+        return redirect()->route('category.index')->with('success', $message);
+    }
 }

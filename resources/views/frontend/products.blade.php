@@ -1830,12 +1830,13 @@
     </style>
 
     @php
-        if (Str::startsWith(request()->path(), 'category/')) {
-            $titleName = str_replace('-', ' ', Str::after(request()->path(), 'category/'));
-        } elseif (Str::startsWith(request()->path(), 'sub-category/')) {
-            $titleName = str_replace('-', ' ', Str::after(request()->path(), 'sub-category/'));
-        } elseif (Str::startsWith(request()->path(), 'child-sub-category/')) {
-            $titleName = str_replace('-', ' ', Str::after(request()->path(), 'child-sub-category/'));
+        $pageType = $pageType ?? 'products';
+        if ($pageType === 'category') {
+            $titleName = $categoryId->name ?? 'Our Products';
+        } elseif ($pageType === 'subcategory') {
+            $titleName = $subCategoryData->name ?? 'Our Products';
+        } elseif ($pageType === 'child-subcategory') {
+            $titleName = $childSubCategoryData->name ?? 'Our Products';
         } else {
             $titleName = 'Our Products';
         }
@@ -1845,7 +1846,7 @@
         <div class="videobanner">
             <div class="image-banner">
                 @php
-                    if (Str::startsWith(request()->path(), 'category/')) {
+                    if ($pageType === 'category') {
                         $bannerImage = 'frontend/images/' . str_replace(' ', '-', $titleName) . '.jpg';
                     } else {
                         $bannerImage = 'frontend/images/main_product_two1.jpg';
@@ -1892,10 +1893,10 @@
             </a>
         </li>
 
-        @if(Str::startsWith(request()->path(), 'category/'))
+        @if($pageType === 'category')
             <li class="separator">›</li>
             <li class="breadcrumb-item active">
-                <a href="{{ url('category/' . Str::slug($titleName)) }}">
+                <a href="{{ url($categoryId->public_url) }}">
                     <svg viewBox="0 0 24 24">
                         <path d="M22.7 19.3l-4.2-4.2c1.1-2.1.7-4.7-1.1-6.4-1.8-1.8-4.5-2.2-6.6-1l2.2 2.2-2.1 2.1-2.2-2.2c-1.2 2.1-.8 4.8 1 6.6 1.7 1.7 4.3 2.2 6.4 1.1l4.2 4.2c.4.4 1 .4 1.4 0l.9-.9c.4-.4.4-1 0-1.4z" />
                     </svg>
@@ -1904,11 +1905,11 @@
             </li>
         @endif
 
-        @if(Str::startsWith(request()->path(), 'sub-category/'))
+        @if($pageType === 'subcategory')
             <li class="separator">›</li>
             <li class="breadcrumb-item">
                 @if($categoryName)
-                <a href="{{ url('category/' . Str::slug($categoryName->name)) }}">
+                <a href="{{ url($categoryName->public_url) }}">
                     <svg viewBox="0 0 24 24">
                         <path d="M22.7 19.3l-4.2-4.2c1.1-2.1.7-4.7-1.1-6.4-1.8-1.8-4.5-2.2-6.6-1l2.2 2.2-2.1 2.1-2.2-2.2c-1.2 2.1-.8 4.8 1 6.6 1.7 1.7 4.3 2.2 6.4 1.1l4.2 4.2c.4.4 1 .4 1.4 0l.9-.9c.4-.4.4-1 0-1.4z" />
                     </svg>
@@ -1920,7 +1921,7 @@
             <li class="separator">›</li>
 
             <li class="breadcrumb-item active">
-                <a href="{{ url('sub-category/' . Str::slug($titleName)) }}">
+                <a href="{{ url($subCategoryData->public_url) }}">
                     <svg viewBox="0 0 24 24">
                         <path d="M22.7 19.3l-4.2-4.2c1.1-2.1.7-4.7-1.1-6.4-1.8-1.8-4.5-2.2-6.6-1l2.2 2.2-2.1 2.1-2.2-2.2c-1.2 2.1-.8 4.8 1 6.6 1.7 1.7 4.3 2.2 6.4 1.1l4.2 4.2c.4.4 1 .4 1.4 0l .9-.9c.4-.4.4-1 0-1.4z" />
                     </svg>
@@ -1929,11 +1930,11 @@
             </li>
         @endif
 
-        @if(Str::startsWith(request()->path(), 'child-sub-category/'))
+        @if($pageType === 'child-subcategory')
             <li class="separator">›</li>
             <li class="breadcrumb-item">
                 @if($categoryName)
-                <a href="{{ url('category/' . Str::slug($categoryName->name)) }}">
+                <a href="{{ url($categoryName->public_url) }}">
                     <svg viewBox="0 0 24 24">
                         <path d="M22.7 19.3l-4.2-4.2c1.1-2.1.7-4.7-1.1-6.4-1.8-1.8-4.5-2.2-6.6-1l2.2 2.2-2.1 2.1-2.2-2.2c-1.2 2.1-.8 4.8 1 6.6 1.7 1.7 4.3 2.2 6.4 1.1l4.2 4.2c .4 .4 1 .4 1.4 0l .9-.9c .4-.4 .4-1 0-1.4z" />
                     </svg>
@@ -1946,7 +1947,7 @@
 
             <li class="breadcrumb-item">
                 @if($subCategoryName)
-                <a href="{{ url('sub-category/' . Str::slug($subCategoryName->name)) }}">
+                <a href="{{ url($subCategoryName->public_url) }}">
                     <svg viewBox="0 0 24 24">
                         <path d="M22.7 19.3l-4.2-4.2c1.1-2.1.7-4.7-1.1-6.4-1.8-1.8-4.5-2.2-6.6-1l2.2 2.2-2.1 2.1-2.2-2.2c-1.2 2.1-.8 4.8 1 6.6 1.7 1.7 4.3 2.2 6.4 1.1l4.2 4.2c .4 .4 1 .4 1.4 0l .9-.9c .4-.4 .4-1 0-1.4z" />
                     </svg>
@@ -1988,8 +1989,8 @@
 
                                     <div class="custom-item">
                                         <div class="custom-header" data-target="#cat{{ $category->id }}">
-                                            <a href="{{ url('category/' . Str::slug($category->name)) }}"
-                                                class="title {{ request()->is('category/' . Str::slug($category->name)) ? 'active-link' : '' }}">
+                                            <a href="{{ url($category->public_url) }}"
+                                                class="title {{ request()->path() === $category->public_url ? 'active-link' : '' }}">
                                                 {{ $category->name }}
                                             </a>
                                             @if($categorySubCategories->isNotEmpty() || $categoryProducts->isNotEmpty())
@@ -2006,8 +2007,8 @@
                                                         @endphp
                                                         <div class="custom-item">
                                                             <div class="custom-header" data-target="#subcat{{ $subCategory->id }}">
-                                                                <a href="{{ url('sub-category/' . Str::slug($subCategory->name)) }}"
-                                                                    class="title {{ request()->is('sub-category/' . Str::slug($subCategory->name)) ? 'active-link' : '' }}">
+                                                                <a href="{{ url($subCategory->public_url) }}"
+                                                                    class="title {{ request()->path() === $subCategory->public_url ? 'active-link' : '' }}">
                                                                     {{ $subCategory->name }}
                                                                 </a>
                                                                 @if($subCategoryProducts->isNotEmpty())
@@ -2020,8 +2021,8 @@
                                                                     <ul>
                                                                         @foreach ($subCategoryProducts as $product)
                                                                             <li>
-                                                                                <a href="{{ url('product/' . Str::slug(str_replace('.', '-dot-', $product->productName))) }}"
-                                                                                    class="{{ request()->is('product/' . Str::slug(str_replace('.', '-dot-', $product->productName))) ? 'active-link' : '' }}">
+                                                                                <a href="{{ url($product->public_url) }}"
+                                                                                    class="{{ request()->path() === $product->public_url ? 'active-link' : '' }}">
                                                                                     {{ $product->productName }}
                                                                                 </a>
                                                                             </li>
@@ -2039,8 +2040,8 @@
                                                     <ul>
                                                         @foreach ($categoryProducts as $product)
                                                             <li>
-                                                                <a href="{{ url('product/' . Str::slug(str_replace('.', '-dot-', $product->productName))) }}"
-                                                                    class="{{ request()->is('product/' . Str::slug(str_replace('.', '-dot-', $product->productName))) ? 'active-link' : '' }}">
+                                                                <a href="{{ url($product->public_url) }}"
+                                                                    class="{{ request()->path() === $product->public_url ? 'active-link' : '' }}">
                                                                     {{ $product->productName }}
                                                                 </a>
                                                             </li>
@@ -2064,7 +2065,7 @@
                     </div>
                     <div class="product__lists">
                         <div class="row">
-                            @php if (Str::startsWith(request()->path(), 'category/')) { @endphp
+                            @php if ($pageType === 'category') { @endphp
                             @foreach ($subCategoriesWithChildSubCategories as $index => $subCategoryData)
                                 <div class="col-md-6 mt-3 mt-md-0 pb-3" style="width:100%!important">
                                     <div class="product-list-box">
@@ -2080,7 +2081,7 @@
                                         </div>
                                         <div class="subcateLists">
                                             <div>
-                                                <a href="{{ url('sub-category/' . Str::slug($subCategoryData['subCategory']->name)) }}"
+                                                <a href="{{ url($subCategoryData['subCategory']->public_url) }}"
                                                     style="text-decoration: none;">
                                                     <h4 style="margin-top: 0px;">{{ $subCategoryData['subCategory']->name }}
                                                     </h4>
@@ -2091,7 +2092,7 @@
                                 </div>
                             @endforeach
 
-                            @php } elseif (Str::startsWith(request()->path(), 'sub-category/')) { @endphp
+                            @php } elseif ($pageType === 'subcategory') { @endphp
                             @if (count($childSubCategoriesWithProducts) === 0)
                                 <div class="col-md-6 mt-3 mt-md-0 pb-3" style="width:100%">
                                     <div class="product-list-box">
@@ -2100,7 +2101,7 @@
                                             <ul class="list-unstyled">
                                                 @forelse ($productsBySubCategory as $subCategoryProduct)
                                                     <li>
-                                                        <a href="{{ url('product/' . Str::slug(str_replace('.', '-dot-', $subCategoryProduct->productName))) }}">
+                                                        <a href="{{ url($subCategoryProduct->public_url) }}">
                                                             {{ $subCategoryProduct->productName }}
                                                         </a>
                                                     </li>
@@ -2145,7 +2146,7 @@
                                                                     <ul class="list-unstyled">
                                                                         @foreach ($productChunk as $childSubCategoryProduct)
                                                                             <li>
-                                                                                <a href="{{ url('product/' . Str::slug(str_replace('.', '-dot-', $childSubCategoryProduct->productName))) }}"
+                                                                                <a href="{{ url($childSubCategoryProduct->public_url) }}"
                                                                                     style="white-space: nowrap;">
                                                                                     {{ $childSubCategoryProduct->productName }}
                                                                                 </a>
@@ -2173,9 +2174,27 @@
                                     </div>
                                 </div>
                             @endforeach
+                            @if ($productsWithoutMatchingChildSubCategory->isNotEmpty())
+                                <div class="col-md-6 mt-3 mt-md-0 pb-3" style="width:100%">
+                                    <div class="product-list-box">
+                                        <div class="subcateLists">
+                                            <h4>{{ $titleName }} Products</h4>
+                                            <ul class="list-unstyled">
+                                                @foreach ($productsWithoutMatchingChildSubCategory as $subCategoryProduct)
+                                                    <li>
+                                                        <a href="{{ url($subCategoryProduct->public_url) }}">
+                                                            {{ $subCategoryProduct->productName }}
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             @endif
 
-                            @php } elseif (Str::startsWith(request()->path(), 'child-sub-category/')) { @endphp
+                            @php } elseif ($pageType === 'child-subcategory') { @endphp
                             <div class="col-md-6 mt-3 mt-md-0 pb-3" style="width:100%">
                                 <div class="product-list-box">
                                     <div class="product-list-img">
@@ -2189,7 +2208,7 @@
                                                 @foreach ($productsByChildSubCategory as $childSubCategoryProduct)
                                                     <li>
                                                         <a
-                                                            href="{{ url('product/' . Str::slug(str_replace('.', '-dot-', $childSubCategoryProduct->productName))) }}">
+                                                            href="{{ url($childSubCategoryProduct->public_url) }}">
                                                             {{ $childSubCategoryProduct->productName }}
                                                         </a>
                                                     </li>
@@ -2215,7 +2234,7 @@
                                         </div>
                                         <div class="subcateLists">
                                             <div>
-                                                <a href="{{ url('category/' . Str::slug($categoryData->name)) }}"
+                                                <a href="{{ url($categoryData->public_url) }}"
                                                     style="text-decoration: none;">
                                                     <h4 style="margin-top: 0px;">{{ $categoryData->name }}</h4>
                                                 </a>

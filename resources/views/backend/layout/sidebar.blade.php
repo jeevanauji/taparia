@@ -53,6 +53,12 @@
                 <p>Products</p>
             </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ route('chronology.order.index') }}" class="nav-link {{ request()->is('admin/chronology-order*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-sort"></i>
+              <p>Chronology Order</p>
+          </a>
+        </li>
           <li class="nav-item">
             <a href="{{ route('reportsAndDownloads.index') }}" class="nav-link {{ request()->is('admin/reports-downloads*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-file-pdf"></i>

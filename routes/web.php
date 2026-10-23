@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ChildSubCategoryController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\CatalogOrderController;
 use App\Http\Controllers\ReportsAndDownloadController;
 use Illuminate\Support\Facades\Artisan;
 
@@ -64,11 +65,15 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
     
     // category
+    Route::get('/chronology-order', [CatalogOrderController::class, 'index'])->name('chronology.order.index');
+    Route::post('/chronology-order/save', [CatalogOrderController::class, 'updateList'])->name('chronology.order.save');
+    Route::get('/catalog-order', fn () => redirect()->route('chronology.order.index'));
     Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
     Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
     Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
     Route::post('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
     Route::get('/category/delete/{id}', [CategoryController::class, 'softDelete'])->name('category.delete');
+    Route::post('/category/toggle/{id}', [CategoryController::class, 'toggleStatus'])->name('category.toggle');
 
      //subcategory
      Route::get('/subcategory', [SubCategoryController::class, 'index'])->name('subcategory.index');
@@ -76,6 +81,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
      Route::get('/subcategory/edit/{id}', [SubCategoryController::class, 'edit'])->name('subcategory.edit');
      Route::post('/subcategory/update/{id}', [SubCategoryController::class, 'update'])->name('subcategory.update');
      Route::get('/subcategory/delete/{id}', [SubCategoryController::class, 'softDelete'])->name('subcategory.delete');
+     Route::post('/subcategory/toggle/{id}', [SubCategoryController::class, 'toggleStatus'])->name('subcategory.toggle');
 
      //childsubcategory
      Route::get('/childsubcategory', [ChildSubCategoryController::class, 'index'])->name('childsubcategory.index');
@@ -83,6 +89,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
      Route::get('/childsubcategory/edit/{id}', [ChildSubCategoryController::class, 'edit'])->name('childsubcategory.edit');
      Route::post('/childsubcategory/update/{id}', [ChildSubCategoryController::class, 'update'])->name('childsubcategory.update');
      Route::get('/childsubcategory/delete/{id}', [ChildSubCategoryController::class, 'softDelete'])->name('childsubcategory.delete');
+     Route::post('/childsubcategory/toggle/{id}', [ChildSubCategoryController::class, 'toggleStatus'])->name('childsubcategory.toggle');
  
     //  products
     Route::get('/products', [ProductsController::class, 'index'])->name('products.index');
@@ -93,6 +100,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/product/info/{id}', [ProductsController::class, 'info'])->name('product.info');
     Route::post('/product/update/{id}', [ProductsController::class, 'update'])->name('product.update');
     Route::get('/product/delete/{id}', [ProductsController::class, 'softDelete'])->name('product.delete');
+    Route::post('/product/toggle/{id}', [ProductsController::class, 'toggleStatus'])->name('product.toggle');
     
     // reports & downloads
     Route::get('/reports-downloads', [ReportsAndDownloadController::class, 'index'])->name('reportsAndDownloads.index');
@@ -103,3 +111,13 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
 
 });
+
+// Canonical catalog URLs: /category-slug, /category-slug/subcategory-slug,
+// and /category-slug/subcategory-slug/product-slug. Keep these last so named application
+// routes above continue to take precedence.
+Route::get('/{categorySlug}/{subCategorySlug}/{productSlug}', [HomeController::class, 'nestedProductDetails'])
+    ->name('catalog.product');
+Route::get('/{categorySlug}/{subCategorySlug}', [HomeController::class, 'nestedSubCategory'])
+    ->name('catalog.subcategory');
+Route::get('/{categorySlug}', [HomeController::class, 'category'])
+    ->name('catalog.category');

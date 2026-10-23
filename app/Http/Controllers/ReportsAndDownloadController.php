@@ -9,7 +9,7 @@ class ReportsAndDownloadController extends Controller
 {
     public function index()
     {
-        $reportsAndDownloads = ReportsAndDownloads::where('isDeleted', 1)->orderBy('id', 'DESC')->get();
+        $reportsAndDownloads = ReportsAndDownloads::where('isDeleted', 0)->orderBy('id', 'DESC')->get();
         return view('backend.reportsanddownloads.index', compact('reportsAndDownloads'));
     }
     
@@ -84,7 +84,7 @@ class ReportsAndDownloadController extends Controller
     public function softDelete($id)
     {
         $reportAndDownload = ReportsAndDownloads::findOrFail($id);
-        $reportAndDownload->update(['isDeleted' => '0']);
+        $reportAndDownload->update(['isDeleted' => '1']);
 
         if ($reportAndDownload) {
             return redirect()->route('reportsAndDownloads.index')->with('success', 'Content successfully deleted!');
