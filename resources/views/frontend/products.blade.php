@@ -748,49 +748,25 @@
             display: block;
         }
 
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            z-index: 1;
-            background: rgba(0, 0, 0, 0.48);
-            pointer-events: none;
-        }
-
         .hero-section .bannertxt {
-            position: absolute;
-            inset: 0;
-            z-index: 2;
+            position: relative;
+            z-index: 1;
             width: 100%;
             height: 100%;
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: #fff;
+            justify-content: flex-start;
+            color: #676464;
             padding: 20px;
             box-sizing: border-box;
-            text-align: center;
+            text-align: left;
         }
 
         .hero-section .hero-text {
             width: 100%;
-            max-width: 100%;
+            max-width: 800px;
             height: fit-content;
-            margin: 0 !important;
-            position: static !important;
-            text-align: center;
-        }
-
-        .hero-section .hero-heading,
-        .hero-section .hero-text h2 {
-            color: #fff !important;
-            white-space: nowrap;
-            font-size: clamp(1.5rem, 4vw, 4rem);
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.42);
-        }
-
-        .hero-section .hero-text p {
-            text-align: center;
+            margin-left: 50px;
         }
 
         @media (max-width: 768px) {
