@@ -328,9 +328,9 @@
 
         .subcateLists h4 {
             color: #1e293b;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
-            margin-top: 70px;
+            margin-top: 30px;
             text-align: center;
             transition: all 0.3s ease;
             position: relative;
@@ -379,8 +379,8 @@
         }
 
         .subcateLists li {
-            margin-bottom: 8px;
-            padding: 0px 0px;
+            margin-bottom: 3px;
+            padding: 0;
             border-radius: 6px;
             transition: all 0.2s ease;
             position: relative;
@@ -476,10 +476,26 @@
         }
 
         .subcate-slide .list-unstyled {
-            flex: 1;
+            flex: 0 0 auto;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
+            margin-top: 4px;
+        }
+
+        .subcate-slide h4 {
+            display: block;
+            width: 100% !important;
+            min-width: 0;
+            white-space: normal !important;
+            overflow-wrap: anywhere !important;
+            word-break: normal !important;
+            margin-bottom: 4px !important;
+        }
+
+        .subcate-slide .list-unstyled li {
+            padding: 2px 7px !important;
+            margin-bottom: 2px;
         }
 
         /* Enhanced Pagination */
@@ -624,7 +640,7 @@
             }
 
             .subcateLists li {
-                padding: 6px 10px;
+                padding: 2px 0;
                 margin-bottom: 6px;
             }
 
@@ -2130,7 +2146,7 @@
                                             <div>
                                                 @php
                                                     $products = $childSubCategoryData['productsBychildSubCategory'];
-                                                    $productChunks = $products->chunk(5);
+                                                    $productChunks = $products->chunk(4);
                                                     $totalProductChunks = $productChunks->count();
                                                  @endphp
                                                 @if($totalProductChunks > 0)
@@ -2414,6 +2430,34 @@
     <script>
 		
         document.addEventListener('DOMContentLoaded', function () {
+
+            document.querySelectorAll('.subcate-slider').forEach(slider => {
+                const match = slider.id.match(/product-slider-(\d+)/);
+                if (!match) return;
+
+                const index = match[1];
+                const slides = slider.querySelector('.subcate-slides');
+                const slideCount = slides?.children.length || 0;
+                const current = document.getElementById(`product-current-${index}`);
+                const previous = document.getElementById(`product-prev-${index}`);
+                const next = document.getElementById(`product-next-${index}`);
+                let page = 0;
+
+                const showPage = () => {
+                    slides.style.transform = `translateX(-${page * 100}%)`;
+                    if (current) current.textContent = page + 1;
+                    if (previous) previous.disabled = page === 0;
+                    if (next) next.disabled = page === slideCount - 1;
+                };
+
+                previous?.addEventListener('click', () => {
+                    if (page > 0) { page--; showPage(); }
+                });
+                next?.addEventListener('click', () => {
+                    if (page < slideCount - 1) { page++; showPage(); }
+                });
+                showPage();
+            });
 			
 
 		
