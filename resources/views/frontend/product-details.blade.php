@@ -566,7 +566,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    color: #676464;
+    color: #ffffffff;
     padding: 20px;
     box-sizing: border-box;
     text-align: left;
@@ -575,14 +575,14 @@
 .hero-text {
     width: 100%;
     max-width: 800px;
-    margin-left: 50px;
+    margin-left: 0px !important;
 }
 
 .hero-text h2 {
-    font-size: 70px;
+    font-size: 50px;
     font-weight: 600;
     margin-bottom: 10px;
-    color: rgb(103, 100, 100);
+    color: rgba(255, 255, 255, 1);
 }
 
 /* 📱 Tablet & Mobile */

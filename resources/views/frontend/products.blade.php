@@ -766,7 +766,8 @@
             width: 100%;
             max-width: 800px;
             height: fit-content;
-            margin-left: 50px;
+            margin-left: 0px;
+            /* margin-left: 50px; */
         }
 
         @media (max-width: 768px) {
@@ -1794,7 +1795,7 @@
    TYPOGRAPHY
 -------------------- */
 .hero-heading {
-    font-size: clamp(1.6rem, 5vw, 4.3rem);
+    font-size: clamp(1.6rem, 4vw, 3.2rem);
     font-weight: 600;
     margin-bottom: 10px;
    /* color: rgb(103, 100, 100);*/
@@ -1803,10 +1804,11 @@
 }
 
 .hero-subheading {
-    font-size: clamp(1rem, 3.5vw, 1.9rem);
+    font-size: clamp(1rem, 3.5vw, 1.3rem);
     margin-bottom: 10px;
-    margin-top: -18px;
-    color: #74BCC6;
+    margin-top: 10px;
+    color: #ffffff !important;
+    /* color: #74BCC6; */
     line-height: 1.5;
 }
 
@@ -1875,9 +1877,9 @@
 
         </div>
         <div class="bannertxt">
-   		 <div class="hero-text" style="position:absolute; top:20%;">
+   		 <div class="hero-text" style="position:absolute; top:40%;">
       	  <h2 class="wow fadeInLeft hero-heading">
-            EXPLORE TAPARIA'S RANGE.
+            EXPLORE <br>TAPARIA'S RANGE.
       	  </h2>
 
        	 <p class="hero-subheading">
