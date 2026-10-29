@@ -614,13 +614,6 @@
             overflow-y: auto;
         }
 
-        .subcategory-list li:hover .products-panel {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(0);
-            /* Move into view */
-        }
-
         .products-panel h4 {
             font-size: 15px;
             font-weight: 600;
@@ -1950,46 +1943,6 @@ document.querySelectorAll('.mobile-dropdown-icon').forEach(icon => {
         });
     });
     
-    document.querySelectorAll('.subcategory-list li').forEach(item => {
-        const productsPanel = document.querySelector(`.products-panel[data-sub-id="${item.dataset.subId}"]`);
-
-        item.addEventListener('mouseenter', function() {
-            // Show the products panel when hovering over the subcategory item
-            if (productsPanel) {
-                productsPanel.style.opacity = '1';
-                productsPanel.style.visibility = 'visible';
-                productsPanel.style.transform = 'translateX(0)'; // Move it into view
-            }
-        });
-
-        item.addEventListener('mouseleave', function() {
-            // Hide the products panel when mouse leaves the subcategory item
-            if (!productsPanel.matches(':hover')) {
-                productsPanel.style.opacity = '0';
-                productsPanel.style.visibility = 'hidden';
-                productsPanel.style.transform = 'translateX(10px)'; // Move it off-screen
-            }
-        });
-
-        // Keep Level 3 visible when hovering over it
-        if (productsPanel) {
-            productsPanel.addEventListener('mouseenter', function() {
-                this.style.opacity = '1';
-                this.style.visibility = 'visible';
-                this.style.transform = 'translateX(0)';
-            });
-
-            productsPanel.addEventListener('mouseleave', function() {
-                // Hide it only if the mouse leaves both the subcategory and products panel
-                if (!item.matches(':hover')) {
-                    this.style.opacity = '0';
-                    this.style.visibility = 'hidden';
-                    this.style.transform = 'translateX(10px)';
-                }
-            });
-        }
-    });
-
     // Remove all highlights
     function removeAllHighlights() {
         document.querySelectorAll('.mega-menu-header').forEach(item => {

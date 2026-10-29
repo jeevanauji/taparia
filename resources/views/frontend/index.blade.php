@@ -1491,16 +1491,7 @@ Home
             <source src="{{ asset('frontend/Taparia_Banner_Video_Cube_4500x2142_OCT_2026.mp4') }}" type="video/mp4">
         </video>
         <div id="heroSlider" class="carousel carousel-fade">
-            <!-- Indicators -->
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-
             <div class="carousel-inner">
-                <!-- Slide 1 -->
                 <div class="carousel-item active">
                     <div class="hero-slide-content">
                         <div class="hero-content">
@@ -1509,44 +1500,14 @@ Home
                                 <p style="margin-bottom:30px; font-size:20px;">
                                 Serving India's evolving needs with trusted tool performance
                                 </p>
-                                <a style="background:#676464; border-radius:4px; border:none;" href="#"
+                                <a style="background:#676464; border-radius:4px; border:none;" href="{{ url('products') }}"
                                     class="btn btn-outline-primary position-relative mt-2">
-                                    Read More
+                                    Our Products
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Slide 2 -->
-                <div class="carousel-item" style="position: relative;">
-                    <div class="hero-slide-content">
-                        <div class="hero-content">
-                            <div class="hero-text">
-                                <h2>EMPOWERING INDIA'S WORKFORCE</h2>
-                                <p style="margin-bottom:30px;">Trusted by professionals to deliver consistent quality and strength</p>
-                                <a style="background:#676464; border:none; border-radius:4px;" href="#"
-                                    class="btn btn-outline-primary position-relative">
-                                    Read More
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <!-- Slide 3 -->
-            <div class="carousel-item">
-                <div class="hero-slide-content">
-                    <div class="hero-content">
-                        <div class="hero-text">
-                            <h2 style="font-weight:bold;">SERVING INDIA FOR DECADES</h2>
-                            <p style="margin-bottom:30px;">Tools built for India's pace, trusted nationwide for performance.</p>
-                            <a style="background:#676464; border-radius:4px;" href="#"
-                                class="btn btn-outline-primary position-relative">
-                                Read More
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -1843,8 +1804,8 @@ Home
                 </div>
                 <h2 style="color: #ffffff;">Get in Touch With Us</h2>
                 <p>We are always ready to help you. Reach out to us anytime!</p>
-                <a href="tel:#" class="call-btn btn btn-outline-primary" style="border-color:rgb(103, 100, 100 ); color:white">
-                    <i class="fas fa-phone-alt"></i> Get in Touch
+                <a href="{{ url('contact-us') }}" data-contact-url="{{ url('contact-us') }}" data-phone-url="tel:+912261478600" class="call-btn btn btn-outline-primary" style="border-color:rgb(103, 100, 100 ); color:white">
+                    <i class="fas fa-phone-alt"></i> Contact Us
                 </a>
             </div>
 
@@ -2028,11 +1989,17 @@ Home
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    new bootstrap.Carousel(document.getElementById('heroSlider'), {
-        interval: false, // STOP AUTO SLIDE
-        wrap: true,
-        pause: false
-    });
+    const contactButton = document.querySelector('.call-btn');
+    if (contactButton) {
+        const contactUrl = contactButton.dataset.contactUrl;
+        const phoneUrl = contactButton.dataset.phoneUrl;
+        const updateContactButton = () => {
+            contactButton.href = window.matchMedia('(max-width: 768px)').matches ? phoneUrl : contactUrl;
+        };
+
+        updateContactButton();
+        window.addEventListener('resize', updateContactButton);
+    }
 });
 </script>
 

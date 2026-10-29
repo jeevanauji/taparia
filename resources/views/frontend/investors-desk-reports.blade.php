@@ -294,7 +294,7 @@ $imgName = $imgMap[strtolower($contentTypeName)] ?? 'banner-investor.png';
                         <td style="text-align:left" data-label="Name">{{ $report->contentName }}</td>
                         <!--<td data-label="Year">{{ \Carbon\Carbon::parse($report->created_at)->format('Y') }}</td>-->
                         <td data-label="Download">
-                            <a href="{{ url('public/' .$report->pdfFile) }}" target="_blank" aria-label="Download {{ $report->contentName }}">
+                            <a href="{{ url($report->pdfFile) }}" target="_blank" aria-label="Download {{ $report->contentName }}">
                                 <span class="material-icons" style="font-size: 16px;">download</span> Download
                             </a>
                         </td>
