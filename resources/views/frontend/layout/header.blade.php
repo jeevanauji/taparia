@@ -1962,6 +1962,17 @@ document.querySelectorAll('.mobile-dropdown-icon').forEach(icon => {
         });
     }
 
+    function closeProductsPanelsExcept(keepPanel = null) {
+        document.querySelectorAll('.products-panel').forEach(panel => {
+            panel.style.zIndex = panel === keepPanel ? '1003' : '1002';
+            if (panel !== keepPanel) {
+                panel.style.opacity = '0';
+                panel.style.visibility = 'hidden';
+                panel.style.transform = 'translateX(-20px)';
+            }
+        });
+    }
+
     // Close all panels
     function closeAllPanels() {
         document.querySelectorAll('.subcategory-panel').forEach(panel => {
@@ -1969,11 +1980,7 @@ document.querySelectorAll('.mobile-dropdown-icon').forEach(icon => {
             panel.style.visibility = 'hidden';
             panel.style.transform = 'translateX(-30px)';
         });
-        document.querySelectorAll('.products-panel').forEach(panel => {
-            panel.style.opacity = '0';
-            panel.style.visibility = 'hidden';
-            panel.style.transform = 'translateX(-20px)';
-        });
+        closeProductsPanelsExcept();
     }
 
     // Level 1 (Category) hover handling
@@ -2027,6 +2034,7 @@ document.querySelectorAll('.mobile-dropdown-icon').forEach(icon => {
         subcategoryItem.addEventListener('mouseenter', function() {
             if (window.innerWidth > 991) {
                 removeAllHighlights();
+                closeProductsPanelsExcept(productsPanel);
 
                 // Highlight parent category
                 const parentCategory = this.closest('.category-group');
