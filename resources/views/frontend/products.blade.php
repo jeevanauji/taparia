@@ -320,10 +320,16 @@
 
         .subcateLists>div {
             flex: 1;
+            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
+            min-width: 0;
+            min-height: 0;
+            max-height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         .subcateLists h4 {
@@ -490,12 +496,19 @@
             white-space: normal !important;
             overflow-wrap: anywhere !important;
             word-break: normal !important;
+            margin-top: 0 !important;
             margin-bottom: 4px !important;
         }
 
         .subcate-slide .list-unstyled li {
             padding: 2px 7px !important;
             margin-bottom: 2px;
+        }
+
+        .subcate-slide .list-unstyled a {
+            white-space: normal !important;
+            overflow-wrap: anywhere;
+            text-align: center;
         }
 
         /* Enhanced Pagination */
