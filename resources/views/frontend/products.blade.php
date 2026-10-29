@@ -1932,7 +1932,7 @@
                     <svg viewBox="0 0 24 24">
                         <path d="M22.7 19.3l-4.2-4.2c1.1-2.1.7-4.7-1.1-6.4-1.8-1.8-4.5-2.2-6.6-1l2.2 2.2-2.1 2.1-2.2-2.2c-1.2 2.1-.8 4.8 1 6.6 1.7 1.7 4.3 2.2 6.4 1.1l4.2 4.2c.4.4 1 .4 1.4 0l.9-.9c.4-.4.4-1 0-1.4z" />
                     </svg>
-                    {{ ucwords(strtolower($categoryName->name)) }}
+                    {{ ucwords(strtolower($categoryName?->name ?? '')) }}
                 </a>
                 @endif
             </li>
@@ -1957,7 +1957,7 @@
                     <svg viewBox="0 0 24 24">
                         <path d="M22.7 19.3l-4.2-4.2c1.1-2.1.7-4.7-1.1-6.4-1.8-1.8-4.5-2.2-6.6-1l2.2 2.2-2.1 2.1-2.2-2.2c-1.2 2.1-.8 4.8 1 6.6 1.7 1.7 4.3 2.2 6.4 1.1l4.2 4.2c .4 .4 1 .4 1.4 0l .9-.9c .4-.4 .4-1 0-1.4z" />
                     </svg>
-                    {{ ucwords(strtolower($categoryName->name)) }}
+                    {{ ucwords(strtolower($categoryName?->name ?? '')) }}
                 </a>
                 @endif
             </li>
@@ -1970,7 +1970,7 @@
                     <svg viewBox="0 0 24 24">
                         <path d="M22.7 19.3l-4.2-4.2c1.1-2.1.7-4.7-1.1-6.4-1.8-1.8-4.5-2.2-6.6-1l2.2 2.2-2.1 2.1-2.2-2.2c-1.2 2.1-.8 4.8 1 6.6 1.7 1.7 4.3 2.2 6.4 1.1l4.2 4.2c .4 .4 1 .4 1.4 0l .9-.9c .4-.4 .4-1 0-1.4z" />
                     </svg>
-                    {{ ucwords(strtolower($subCategoryName->name)) }}
+                    {{ ucwords(strtolower($subCategoryName?->name ?? '')) }}
                 </a>
                 @endif
             </li>
