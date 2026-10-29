@@ -2129,18 +2129,42 @@
                                 <div class="col-md-6 mt-3 mt-md-0 pb-3" style="width:100%">
                                     <div class="product-list-box">
                                         <div class="subcateLists">
-                                            <h4>{{ $titleName }}</h4>
-                                            <ul class="list-unstyled">
-                                                @forelse ($productsBySubCategory as $subCategoryProduct)
-                                                    <li>
-                                                        <a href="{{ url($subCategoryProduct->public_url) }}">
-                                                            {{ $subCategoryProduct->productName }}
-                                                        </a>
-                                                    </li>
-                                                @empty
-                                                    <li>No products found.</li>
-                                                @endforelse
-                                            </ul>
+                                            @php
+                                                $subCategoryProductChunks = $productsBySubCategory->chunk(4);
+                                                $subCategoryProductPageCount = $subCategoryProductChunks->count();
+                                            @endphp
+                                            @if ($subCategoryProductPageCount > 0)
+                                                <div class="subcate-slider" id="product-slider-0">
+                                                    <div class="subcate-slides">
+                                                        @foreach ($subCategoryProductChunks as $productChunk)
+                                                            <div class="subcate-slide">
+                                                                <h4>{{ $titleName }}</h4>
+                                                                <ul class="list-unstyled">
+                                                                    @foreach ($productChunk as $subCategoryProduct)
+                                                                        <li>
+                                                                            <a href="{{ url($subCategoryProduct->public_url) }}">
+                                                                                {{ $subCategoryProduct->productName }}
+                                                                            </a>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                                @if ($subCategoryProductPageCount > 1)
+                                                    <div class="subcate-pagination">
+                                                        <button class="pagination-btn" id="product-prev-0" disabled>‹</button>
+                                                        <span style="font-size: 0.8rem; color: #fff;">
+                                                            <span id="product-current-0">1</span>/{{ $subCategoryProductPageCount }}
+                                                        </span>
+                                                        <button class="pagination-btn" id="product-next-0">›</button>
+                                                    </div>
+                                                @endif
+                                            @else
+                                                <h4>{{ $titleName }}</h4>
+                                                <p>No products found.</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
