@@ -1524,7 +1524,8 @@
 
     .custom-body.show {
         max-height: 1200px;
-        overflow: visible !important;
+        /* Keep nested rows inside the animated panel so they cannot cover siblings. */
+        overflow: hidden !important;
     }
 }
 
