@@ -124,7 +124,8 @@
     white-space: nowrap;
     position: relative;
     right: -160px; /* Only 40px visible initially */
-    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
+    /* Avoid the old overshooting curve moving the hit area away from the pointer. */
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out !important;
 }
 
 /* Individual button colors */
