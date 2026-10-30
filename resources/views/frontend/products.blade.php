@@ -1506,6 +1506,28 @@
     }
 }
 
+/* Keep the 14-inch laptop category filter from trapping scrolling in nested accordions. */
+@media (min-width: 1024px) and (max-width: 1366px) {
+    .product-filter {
+        width: min(100%, 265px);
+        max-height: calc(100vh - 140px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        overscroll-behavior: contain;
+    }
+
+    .custom-accordion.custom-sub {
+        max-height: none;
+        overflow: visible;
+        padding-right: 0;
+    }
+
+    .custom-body.show {
+        max-height: 1200px;
+        overflow: visible !important;
+    }
+}
+
 @media (max-width: 1440px) and (min-width: 1024px) {
     .col-md-4 {
         flex: 0 0 25% !important;
