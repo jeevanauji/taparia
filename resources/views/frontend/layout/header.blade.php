@@ -2283,39 +2283,6 @@ document.querySelectorAll('.mobile-dropdown-icon').forEach(icon => {
 
 
 <script>
-    let lastScroll = 0;
-    let ticking = false;
-
-    window.addEventListener("scroll", function() {
-
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-                const topStrip = document.querySelector(".top-strip");
-                const mainNavbar = document.querySelector(".main-navbar");
-
-                if (currentScroll > lastScroll && currentScroll > 80) {
-                    // hide with smooth slide
-                    topStrip.classList.add("header-hide");
-                    mainNavbar.classList.add("header-hide");
-                } else {
-                    // show smoothly
-                    topStrip.classList.remove("header-hide");
-                    mainNavbar.classList.remove("header-hide");
-                }
-
-                lastScroll = currentScroll;
-                ticking = false;
-            });
-
-            ticking = true;
-        }
-
-    });
-</script>
-
-<script>
 const input = document.getElementById('searchInput');
 const box = document.getElementById('suggestionBox');
 let debounce;

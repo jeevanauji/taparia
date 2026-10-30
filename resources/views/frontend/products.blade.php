@@ -2344,7 +2344,6 @@
 
 @section('javaScript')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <!-- <script>
                                          document.addEventListener('DOMContentLoaded', function() {
                                              // Enhanced CSS with smooth animations - OVERRIDE existing styles
