@@ -503,12 +503,23 @@
         .subcate-slide .list-unstyled li {
             padding: 2px 7px !important;
             margin-bottom: 2px;
+            overflow: visible;
         }
 
         .subcate-slide .list-unstyled a {
             white-space: normal !important;
-            overflow-wrap: anywhere;
+            overflow-wrap: anywhere !important;
+            word-break: normal;
             text-align: center;
+        }
+
+        /* Keep long product names inside the card on laptop-width screens. */
+        .subcate-slide,
+        .subcate-slide .list-unstyled,
+        .subcate-slide .list-unstyled li,
+        .subcate-slide .list-unstyled a {
+            min-width: 0;
+            max-width: 100%;
         }
 
         /* Enhanced Pagination */
@@ -2202,8 +2213,7 @@
                                                                     <ul class="list-unstyled">
                                                                         @foreach ($productChunk as $childSubCategoryProduct)
                                                                             <li>
-                                                                                <a href="{{ url($childSubCategoryProduct->public_url) }}"
-                                                                                    style="white-space: nowrap;">
+                                                                                <a href="{{ url($childSubCategoryProduct->public_url) }}">
                                                                                     {{ $childSubCategoryProduct->productName }}
                                                                                 </a>
                                                                             </li>
