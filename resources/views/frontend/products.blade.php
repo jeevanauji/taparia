@@ -274,9 +274,27 @@
         }
 
         .product-list-box:hover {
-            transform: translateY(-8px);
+            /* Keep the hit area stationary while hovering over the card title. */
+            transform: none;
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
             border-color: #74BCC6;
+        }
+
+        /* Keep the card overlay's hit area stable while it slides into view. */
+        .product-list-box .subcateLists {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 18px;
+            transform: translateX(-100%);
+            transition: transform 0.35s ease;
+            pointer-events: none;
+            background: #74BCC6;
+        }
+
+        .product-list-box:hover .subcateLists {
+            width: 100%;
+            transform: translateX(0);
+            pointer-events: auto;
         }
 
         .product-list-box:hover::before {
@@ -321,10 +339,11 @@
         .subcateLists>div {
             flex: 1;
             width: 100%;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
+            align-items: stretch;
+            justify-content: center;
             min-width: 0;
             min-height: 0;
             max-height: 100%;
@@ -333,17 +352,18 @@
         }
 
         .subcateLists h4 {
-            color: #1e293b;
-            font-size: 1rem;
+            color: #fff;
+            font-size: clamp(0.88rem, 1vw, 1rem);
             font-weight: 700;
-            margin-top: 30px;
+            margin: 0 auto 0.6rem;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: color 0.2s ease;
             position: relative;
-            padding-bottom: 10px;
-            line-height: 1.3;
+            padding: 0 0 0.55rem;
+            line-height: 1.25;
             order: -1;
-            /* This ensures the heading stays at the top */
+            max-width: 100%;
+            overflow-wrap: anywhere;
         }
 
         .subcateLists h4::after {
@@ -352,19 +372,15 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 40px;
+            width: 48px;
             height: 1px;
             background: red;
             border-radius: 1px;
             transition: width 0.3s ease;
         }
 
-        .product-list-box:hover .subcateLists h4 {
-            color: white;
-        }
-
         .product-list-box:hover .subcateLists h4::after {
-            width: 80px;
+            width: 64px;
         }
 
         .subcateLists a {
@@ -410,26 +426,41 @@
 
         .subcateLists li:hover {
             background: rgba(116, 188, 198, 0.08);
-            transform: translateX(4px);
         }
 
         .subcateLists li a {
-            color: #64748b;
+            color: #fff;
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: clamp(0.78rem, 0.9vw, 0.9rem);
             font-weight: 500;
-            transition: all 0.2s ease;
+            transition: color 0.2s ease, background-color 0.2s ease;
             display: block;
             position: relative;
             z-index: 1;
-            line-height: 1.4;
+            line-height: 1.3;
             word-wrap: break-word;
             overflow-wrap: break-word;
+            text-align: center;
+            white-space: normal;
         }
 
         .subcateLists li:hover a {
-            color: red;
-            padding-left: 5px;
+            color: #f4ffff;
+        }
+
+        .subcate-slide,
+        .subcate-slide .list-unstyled,
+        .subcate-slide .list-unstyled li,
+        .subcate-slide .list-unstyled a {
+            min-width: 0;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Each carousel page must retain the overlay width for its translateX paging. */
+        .subcate-slide {
+            flex: 0 0 100%;
+            width: 100%;
         }
 
         /* Section Title Styles */
