@@ -425,7 +425,9 @@
         }
 
         .subcateLists li:hover {
-            background: rgba(116, 188, 198, 0.08);
+            background: #f1f3f5;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(35, 45, 55, 0.24);
         }
 
         .subcateLists li a {
@@ -442,10 +444,11 @@
             overflow-wrap: break-word;
             text-align: center;
             white-space: normal;
+            border-radius: inherit;
         }
 
         .subcateLists li:hover a {
-            color: #f4ffff;
+            color: #d62828;
         }
 
         .subcate-slide,
@@ -455,6 +458,12 @@
             min-width: 0;
             max-width: 100%;
             box-sizing: border-box;
+        }
+
+        .subcate-slide .list-unstyled {
+            margin-left: 0;
+            margin-right: 0;
+            padding: 0;
         }
 
         /* Each carousel page must retain the overlay width for its translateX paging. */
