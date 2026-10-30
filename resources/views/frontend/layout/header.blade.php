@@ -276,6 +276,10 @@
             color: #74BCC6;
         }
 
+        .mobile-search-container {
+            display: none;
+        }
+
         /* ===============================
    🔹 Flex Utilities
    =============================== */
@@ -295,10 +299,9 @@
         /* --- For Tablets & Mobile (Below 768px) --- */
         @media (max-width: 767.98px) {
             .top-strip {
-                /*flex-direction: column;*/
                 align-items: center;
-                gap: 10px;
-                padding: 10px 15px;
+                gap: 0;
+                padding: 8px 12px 0;
             }
 
             .top-strip .search-bar,
@@ -318,8 +321,11 @@
             /* Mobile Search */
             .mobile-search-container {
                 display: block;
+                position: relative;
                 width: 100%;
-                padding: 10px 0;
+                flex: 0 0 100%;
+                padding: 8px 0 10px;
+                order: 3;
             }
 
             .mobile-search-bar {
@@ -330,6 +336,7 @@
                 border: 1px solid #ccc;
                 border-radius: 0.375rem;
                 overflow: hidden;
+                min-width: 0;
             }
 
             .mobile-search-bar input {
@@ -338,6 +345,7 @@
                 padding: 0.5rem 0.75rem;
                 border-radius: 0.375rem 0 0 0.375rem;
                 flex: 1;
+                min-width: 0;
                 font-size: 0.95rem;
             }
 
@@ -348,6 +356,20 @@
                 color: #111;
                 padding: 0.5rem 0.75rem;
                 cursor: pointer;
+            }
+
+            .main-header .top-strip .suggestion-box {
+                left: 0;
+                right: auto;
+                width: 100%;
+                max-height: min(45vh, 320px);
+                border: 1px solid #d6d6d6;
+                border-radius: 0 0 8px 8px;
+                box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+            }
+
+            body {
+                padding-top: 168px !important;
             }
         }
 
@@ -1157,7 +1179,7 @@
             list-style: none;
             margin: 0;
             padding: 0;
-			width:500px;
+			width: min(500px, calc(100vw - 24px));
             max-height: 360px;
             overflow-y: auto;
             display: none;
@@ -1388,7 +1410,16 @@
 
         </div>
 
-        <!-- Mobile Search Container -->
+        <div class="mobile-search-container">
+            <form class="mobile-search-bar" role="search" method="GET" action="{{ url('products') }}">
+                <input id="mobileSearchInput" name="q" type="search" placeholder="Search products..."
+                    autocomplete="off" aria-label="Search products">
+                <button type="submit" aria-label="Search">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                </button>
+            </form>
+            <ul id="mobileSuggestionBox" class="suggestion-box"></ul>
+        </div>
 
     </div>
 
@@ -2288,11 +2319,12 @@ const box = document.getElementById('suggestionBox');
 let debounce;
 
 function highlightMatch(text, query) {
-    const regex = new RegExp(`(${query})`, 'ig');
+    const safeQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${safeQuery})`, 'ig');
     return text.replace(regex, '<span class="highlight">$1</span>');
 }
 
-input.addEventListener('input', function () {
+if (input && box) input.addEventListener('input', function () {
     clearTimeout(debounce);
     const q = this.value.trim();
     console.log(q.length);
@@ -2343,6 +2375,68 @@ input.addEventListener('input', function () {
         });
     }, 250);
 });
+</script>
+
+<script>
+const mobileSearchInput = document.getElementById('mobileSearchInput');
+const mobileSuggestionBox = document.getElementById('mobileSuggestionBox');
+if (mobileSearchInput && mobileSuggestionBox) {
+    let mobileSearchTimer;
+    let latestMobileSearch = 0;
+    mobileSearchInput.addEventListener('input', function () {
+        clearTimeout(mobileSearchTimer);
+        const query = this.value.trim();
+        const requestNumber = ++latestMobileSearch;
+        if (!query) {
+            mobileSuggestionBox.style.display = 'none';
+            mobileSuggestionBox.replaceChildren();
+            return;
+        }
+
+        mobileSearchTimer = setTimeout(() => {
+            fetch(`/products?q=${encodeURIComponent(query)}`, {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+                .then(response => response.json())
+                .then(results => {
+                    if (requestNumber !== latestMobileSearch) return;
+                    mobileSuggestionBox.replaceChildren();
+                    const heading = document.createElement('li');
+                    heading.className = 'search-header';
+                    heading.textContent = `Search results for: ${query}`;
+                    mobileSuggestionBox.appendChild(heading);
+
+                    if (!results.length) {
+                        const empty = document.createElement('li');
+                        empty.className = 'no-result';
+                        empty.textContent = 'No results found';
+                        mobileSuggestionBox.appendChild(empty);
+                    } else {
+                        results.forEach(result => {
+                            const row = document.createElement('li');
+                            const type = document.createElement('span');
+                            type.className = 'type';
+                            type.textContent = result.type || '';
+                            const label = document.createElement('span');
+                            label.className = 'label';
+                            label.textContent = result.label || '';
+                            row.append(type, label);
+                            row.addEventListener('click', () => { window.location.href = result.url; });
+                            mobileSuggestionBox.appendChild(row);
+                        });
+                    }
+                    mobileSuggestionBox.style.display = 'block';
+                })
+                .catch(() => { mobileSuggestionBox.style.display = 'none'; });
+        }, 250);
+    });
+
+    document.addEventListener('click', event => {
+        if (!mobileSuggestionBox.contains(event.target) && !mobileSearchInput.contains(event.target)) {
+            mobileSuggestionBox.style.display = 'none';
+        }
+    });
+}
 </script>
 
 
