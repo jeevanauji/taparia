@@ -1046,8 +1046,7 @@ About Us
 				TRUST, <span style="color:#AEE7ED;"> LEGACY</span>, <br> DEDICATION.
             </h2>
             <span class="hero-subheading" style="margin-bottom:10px;color: #fff;">
-                Our foundation is trust.<br>
-                Your future is continuous improvement.
+                Our foundation is trust our future is <br> continuous improvement
             </span>
         </div>
     </div>

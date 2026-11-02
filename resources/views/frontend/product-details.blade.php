@@ -756,6 +756,169 @@
                     display: none !important;
                 }
             }
+
+            /* Phone layout for product detail banner and breadcrumb. */
+            @media (max-width: 767.98px) {
+                .hero-section::after {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    z-index: 1;
+                    pointer-events: none;
+                    background: linear-gradient(0deg, rgba(0, 0, 0, .58), rgba(0, 0, 0, .18) 72%);
+                }
+
+                .hero-section .bannertxt {
+                    position: absolute !important;
+                    inset: 0 !important;
+                    z-index: 3 !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    padding: 18px !important;
+                    text-align: center !important;
+                }
+
+                .hero-section .hero-text {
+                    width: 100% !important;
+                    max-width: 520px !important;
+                    margin: 0 auto !important;
+                    padding: 0 !important;
+                    text-align: center !important;
+                }
+
+                .hero-section .hero-text h2 {
+                    margin: 0 !important;
+                    color: #fff !important;
+                    font-size: clamp(1.35rem, 6vw, 1.8rem) !important;
+                    line-height: 1.2 !important;
+                    overflow-wrap: anywhere;
+                    text-shadow: 0 2px 10px rgba(0, 0, 0, .75);
+                }
+
+                #brdcrumsection {
+                    width: calc(100% - 32px) !important;
+                    max-width: 920px;
+                    margin: 10px auto 16px !important;
+                    padding: 5px 8px !important;
+                    border: 1px solid #e4edef !important;
+                    border-radius: 12px !important;
+                    background: #f7fafb !important;
+                    box-shadow: 0 3px 10px rgba(34, 75, 86, .07) !important;
+                    overflow-x: auto;
+                    overscroll-behavior-x: contain;
+                    scrollbar-width: none;
+                    -webkit-overflow-scrolling: touch;
+                    touch-action: pan-x;
+                }
+
+                #brdcrumsection::-webkit-scrollbar {
+                    display: none;
+                }
+
+                #brdcrumsection .breadcrumb {
+                    display: flex !important;
+                    flex-direction: row !important;
+                    width: max-content !important;
+                    min-width: 100%;
+                    flex-wrap: nowrap !important;
+                    align-items: center !important;
+                    justify-content: flex-start !important;
+                    gap: 5px !important;
+                    margin: 0 auto !important;
+                }
+
+                #brdcrumsection .breadcrumb-item {
+                    display: flex !important;
+                    flex: 0 0 auto !important;
+                    width: auto !important;
+                    margin: 0 !important;
+                }
+
+                #brdcrumsection .breadcrumb-item a,
+                #brdcrumsection .breadcrumb-item span {
+                    display: inline-flex !important;
+                    flex: 0 0 auto;
+                    width: auto !important;
+                    min-height: 30px;
+                    align-items: center;
+                    justify-content: center !important;
+                    padding: 5px 8px !important;
+                    border: 1px solid #e3ebed !important;
+                    border-radius: 9px !important;
+                    background: #fff !important;
+                    color: #50666d !important;
+                    font-size: 11px !important;
+                    line-height: 1.25;
+                    white-space: nowrap;
+                    box-shadow: 0 1px 3px rgba(34, 75, 86, .05) !important;
+                }
+
+                #brdcrumsection .breadcrumb-item.active span {
+                    border-color: #74bcc6 !important;
+                    background: #74bcc6 !important;
+                    color: #fff !important;
+                    font-weight: 700;
+                }
+
+                #brdcrumsection .breadcrumb-item svg {
+                    width: 12px !important;
+                    height: 12px !important;
+                    flex: 0 0 12px;
+                    margin-right: 4px !important;
+                }
+
+                #brdcrumsection li[style*="margin: 0 10px"] {
+                    display: inline-flex !important;
+                    flex: 0 0 auto;
+                    align-items: center;
+                    justify-content: center;
+                    width: auto !important;
+                    margin: 0 1px !important;
+                    padding: 0 !important;
+                    color: #93a7ad !important;
+                    font-size: 12px !important;
+                }
+
+                #content-section > .container-xl {
+                    padding-right: 16px;
+                    padding-left: 16px;
+                }
+
+                #content-section .row {
+                    justify-content: center;
+                    margin-right: 0;
+                    margin-left: 0;
+                }
+
+                #content-section .row > [class*="col-"] {
+                    flex: 0 0 100%;
+                    width: 100%;
+                    max-width: 640px;
+                    padding-right: 0;
+                    padding-left: 0;
+                    margin-right: auto;
+                    margin-left: auto;
+                }
+
+                #content-section .detailsSLider,
+                #content-section .main-image-container {
+                    width: 100%;
+                    max-width: 520px;
+                    margin-right: auto;
+                    margin-left: auto;
+                }
+
+                #content-section .bg-headings,
+                #content-section .catelog-d-btn,
+                #content-section .product-description h4 {
+                    text-align: center !important;
+                }
+
+                #content-section .product-overview {
+                    text-align: center;
+                }
+            }
         </style>
     </nav>
 

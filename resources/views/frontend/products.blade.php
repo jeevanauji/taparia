@@ -1933,6 +1933,343 @@
 	.hero-section p {
     color: #74BCC6;
 }	
+
+@media (min-width: 768px) {
+    .subcate-slider.mobile-product-pagination {
+        display: block;
+        flex: 0 0 auto;
+        overflow: visible;
+    }
+
+    .mobile-product-pagination .subcate-slides {
+        display: flex;
+        flex-direction: column;
+        flex: 0 0 auto;
+        transform: none !important;
+        transition: none;
+    }
+
+    .mobile-product-pagination .subcate-slide {
+        flex: 0 0 auto;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .mobile-product-pagination-controls {
+        display: none !important;
+    }
+}
+
+/* Phone-only product banner contrast and compact breadcrumb treatment. */
+@media (max-width: 767.98px) {
+    .hero-section::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background:
+            linear-gradient(0deg, rgba(0, 0, 0, .62) 0%, rgba(0, 0, 0, .28) 58%, rgba(0, 0, 0, .12) 100%),
+            linear-gradient(90deg, rgba(0, 0, 0, .24), transparent 78%);
+    }
+
+    .hero-section .bannertxt {
+        z-index: 2 !important;
+    }
+
+    body .hero-section .bannertxt .hero-text {
+        left: 16px;
+        right: 16px;
+        top: 50% !important;
+        width: calc(100% - 32px) !important;
+        max-width: none !important;
+        padding: 0 !important;
+        transform: translateY(-50%);
+        text-align: center !important;
+    }
+
+    .hero-section .hero-heading,
+    .hero-section .hero-subheading {
+        color: #fff !important;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, .72);
+    }
+
+    nav.breadcrumb-wrapper {
+        width: calc(100% - 32px);
+        max-width: 920px;
+        margin: 10px auto 16px !important;
+        padding: 5px 8px !important;
+        border: 1px solid #e4edef !important;
+        border-radius: 12px !important;
+        background: #f7fafb !important;
+        box-shadow: 0 3px 10px rgba(34, 75, 86, .07) !important;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
+    }
+
+    nav.breadcrumb-wrapper::-webkit-scrollbar { display: none; }
+
+    nav.breadcrumb-wrapper .breadcrumb {
+        display: flex !important;
+        flex-direction: row !important;
+        width: max-content;
+        min-width: 100%;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 5px !important;
+        margin: 0 auto;
+    }
+
+    nav.breadcrumb-wrapper .separator {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+        width: auto !important;
+        margin: 0 !important;
+        color: #93a7ad;
+        font-size: 12px !important;
+    }
+
+    nav.breadcrumb-wrapper .breadcrumb-item {
+        display: flex !important;
+        flex: 0 0 auto !important;
+        width: auto !important;
+        min-width: max-content;
+        max-width: none;
+        margin: 0 !important;
+        justify-content: center;
+    }
+
+    nav.breadcrumb-wrapper .breadcrumb-item a,
+    nav.breadcrumb-wrapper .breadcrumb-item.active a {
+        display: inline-flex !important;
+        width: auto !important;
+        max-width: none;
+        min-height: 30px;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 8px !important;
+        border: 1px solid #e3ebed !important;
+        border-radius: 9px;
+        background: #fff !important;
+        color: #50666d;
+        font-size: 11px !important;
+        line-height: 1.25;
+        text-align: center;
+        white-space: nowrap;
+        box-shadow: 0 1px 3px rgba(34, 75, 86, .05) !important;
+    }
+
+    nav.breadcrumb-wrapper .breadcrumb-item.active a {
+        border-color: #74bcc6 !important;
+        background: #74bcc6 !important;
+        color: #fff !important;
+        font-weight: 700;
+        box-shadow: 0 2px 6px rgba(57, 140, 152, .2) !important;
+    }
+
+    nav.breadcrumb-wrapper .breadcrumb-item a svg {
+        width: 12px;
+        height: 12px;
+        flex: 0 0 12px;
+        margin-right: 4px;
+    }
+
+    .content-section > .container-xl {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    .content-section {
+        padding-top: 0 !important;
+    }
+
+    .content-section .section-title {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    .content-section > .container-xl > .row {
+        justify-content: center;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .content-section > .container-xl > .row > [class*="col-"] {
+        width: 100%;
+        max-width: 640px;
+        padding-right: 0;
+        padding-left: 0;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .product__lists .row {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    .product__lists .row > [class*="col-"] {
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-width: 520px;
+        padding: 0 !important;
+        margin: 0 auto !important;
+    }
+
+    .product-list-box {
+        width: 100%;
+        min-height: 0;
+        height: auto !important;
+        max-height: none !important;
+        display: block !important;
+        overflow: hidden !important;
+        padding: 0 !important;
+        border: 1px solid #74bcc6 !important;
+        border-radius: 16px !important;
+        background: #74bcc6 !important;
+        box-shadow: 0 6px 20px rgba(28, 54, 70, .08) !important;
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+    }
+
+    /* Touchscreens have no hover state: reveal product links inside every card. */
+    .product-list-box .subcateLists {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        display: block !important;
+        min-height: 0;
+        height: auto !important;
+        max-height: none !important;
+        box-sizing: border-box;
+        padding: 18px 20px !important;
+        transform: none !important;
+        pointer-events: auto !important;
+        background: #74bcc6 !important;
+        border-radius: 10px;
+        color: #fff;
+    }
+
+    .product-list-box:has(.subcate-slider),
+    .product-list-box:has(.subcate-slider) .subcateLists {
+        min-height: 0;
+    }
+
+    .product-list-box .subcateLists > div {
+        display: block !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    .product-list-box .subcate-slider {
+        display: block !important;
+        width: 100%;
+        height: auto !important;
+        max-height: none !important;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .product-list-box .subcate-slides {
+        display: flex !important;
+        width: 100%;
+        height: auto !important;
+        min-height: 0;
+        align-items: flex-start;
+    }
+
+    .product-list-box .subcate-slide {
+        display: flex !important;
+        flex-direction: column;
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        min-height: 0;
+        justify-content: flex-start;
+    }
+
+    .product-list-box .subcateLists h4 {
+        margin: 0 0 12px !important;
+        padding: 0 0 10px !important;
+        color: #fff !important;
+        font-size: 1rem !important;
+        line-height: 1.35;
+        text-align: center;
+    }
+
+    .product-list-box .subcateLists h4::after {
+        width: 42px;
+        background: rgba(255, 255, 255, .9);
+    }
+
+    .product-list-box .subcate-slide .list-unstyled {
+        display: block !important;
+        flex: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .product-list-box .subcate-slide .list-unstyled li {
+        margin: 0 !important;
+        padding: 0 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, .24);
+    }
+
+    .product-list-box .subcate-slide .list-unstyled li:last-child {
+        border-bottom: 0;
+    }
+
+    .product-list-box .subcate-slide .list-unstyled a {
+        padding: 9px 2px;
+        color: #fff !important;
+        font-size: .9rem !important;
+        font-weight: 500;
+        line-height: 1.4;
+        text-align: left !important;
+    }
+
+    .product-list-box .subcate-pagination {
+        display: flex;
+    }
+
+    .product-list-box .product-list-img {
+        display: none !important;
+    }
+
+    .product-list-box .subcate-slide .list-unstyled li {
+        display: block;
+        width: 100%;
+    }
+
+    .product-list-box .subcate-slide .list-unstyled a {
+        display: block;
+        width: 100%;
+    }
+
+    .product-list-img [data-aos] {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+    }
+
+    .product-list-img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
     </style>
 
     @php
@@ -2307,16 +2644,37 @@
                                 <div class="col-md-6 mt-3 mt-md-0 pb-3" style="width:100%">
                                     <div class="product-list-box">
                                         <div class="subcateLists">
-                                            <h4>{{ $titleName }} Products</h4>
-                                            <ul class="list-unstyled">
-                                                @foreach ($productsWithoutMatchingChildSubCategory as $subCategoryProduct)
-                                                    <li>
-                                                        <a href="{{ url($subCategoryProduct->public_url) }}">
-                                                            {{ $subCategoryProduct->productName }}
-                                                        </a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
+                                            @php
+                                                $unmatchedProductChunks = $productsWithoutMatchingChildSubCategory->chunk(4);
+                                                $unmatchedProductPageCount = $unmatchedProductChunks->count();
+                                            @endphp
+                                            <div class="subcate-slider mobile-product-pagination" id="product-slider-unmatched">
+                                                <div class="subcate-slides">
+                                                    @foreach ($unmatchedProductChunks as $productChunk)
+                                                        <div class="subcate-slide">
+                                                            <h4>{{ $titleName }} Products</h4>
+                                                            <ul class="list-unstyled">
+                                                                @foreach ($productChunk as $subCategoryProduct)
+                                                                    <li>
+                                                                        <a href="{{ url($subCategoryProduct->public_url) }}">
+                                                                            {{ $subCategoryProduct->productName }}
+                                                                        </a>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            @if ($unmatchedProductPageCount > 1)
+                                                <div class="subcate-pagination mobile-product-pagination-controls">
+                                                    <button class="pagination-btn" id="product-prev-unmatched" disabled>‹</button>
+                                                    <span style="font-size: 0.8rem; color: #fff;">
+                                                        <span id="product-current-unmatched">1</span>/{{ $unmatchedProductPageCount }}
+                                                    </span>
+                                                    <button class="pagination-btn" id="product-next-unmatched">›</button>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -2333,16 +2691,38 @@
                                     </div>
                                     <div class="subcateLists">
                                         <div>
-                                            <ul class="list-unstyled">
-                                                @foreach ($productsByChildSubCategory as $childSubCategoryProduct)
-                                                    <li>
-                                                        <a
-                                                            href="{{ url($childSubCategoryProduct->public_url) }}">
-                                                            {{ $childSubCategoryProduct->productName }}
-                                                        </a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
+                                            @php
+                                                $childProductChunks = $productsByChildSubCategory->chunk(4);
+                                                $childProductPageCount = $childProductChunks->count();
+                                            @endphp
+                                            @if ($childProductPageCount > 0)
+                                                <div class="subcate-slider mobile-product-pagination" id="product-slider-child">
+                                                    <div class="subcate-slides">
+                                                        @foreach ($childProductChunks as $productChunk)
+                                                            <div class="subcate-slide">
+                                                                <ul class="list-unstyled">
+                                                                    @foreach ($productChunk as $childSubCategoryProduct)
+                                                                        <li>
+                                                                            <a href="{{ url($childSubCategoryProduct->public_url) }}">
+                                                                                {{ $childSubCategoryProduct->productName }}
+                                                                            </a>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                                @if ($childProductPageCount > 1)
+                                                    <div class="subcate-pagination mobile-product-pagination-controls">
+                                                        <button class="pagination-btn" id="product-prev-child" disabled>‹</button>
+                                                        <span style="font-size: 0.8rem; color: #fff;">
+                                                            <span id="product-current-child">1</span>/{{ $childProductPageCount }}
+                                                        </span>
+                                                        <button class="pagination-btn" id="product-next-child">›</button>
+                                                    </div>
+                                                @endif
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -2544,7 +2924,11 @@
         document.addEventListener('DOMContentLoaded', function () {
 
             document.querySelectorAll('.subcate-slider').forEach(slider => {
-                const match = slider.id.match(/product-slider-(\d+)/);
+                if (slider.classList.contains('mobile-product-pagination') && !window.matchMedia('(max-width: 767.98px)').matches) {
+                    return;
+                }
+
+                const match = slider.id.match(/^product-slider-(.+)$/);
                 if (!match) return;
 
                 const index = match[1];
