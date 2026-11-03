@@ -221,7 +221,7 @@ class ProductsController extends Controller
         }
     }
 
-    public function toggleStatus($id)
+    public function toggleStatus(Request $request, $id)
     {
         $product = Products::findOrFail($id);
         $product->isDeleted = (string) ((int) $product->isDeleted === 0 ? 1 : 0);
