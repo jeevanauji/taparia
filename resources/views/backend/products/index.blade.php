@@ -70,7 +70,7 @@ Products
                             <a href="javascript:void(0);" class="btn btn-primary btn-sm" onclick="getProductInfo({{ $product->id }});">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <form action="{{ route('product.toggle', $product->id) }}" method="POST" class="d-inline">
+                            <form action="{{ route('product.toggle', $product->id) }}" method="POST" class="d-inline js-catalog-status-form">
                                 @csrf
                                 <button type="submit" class="catalog-status-toggle {{ (int) $product->isDeleted === 0 ? 'is-active' : 'is-inactive' }}" aria-label="{{ (int) $product->isDeleted === 0 ? 'Active. Click to deactivate product.' : 'Inactive. Click to activate product.' }}" title="{{ (int) $product->isDeleted === 0 ? 'Active' : 'Inactive' }}">
                                     <span class="toggle-knob" aria-hidden="true"></span>

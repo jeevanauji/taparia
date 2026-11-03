@@ -229,6 +229,9 @@ class ProductsController extends Controller
         ProductImages::where('productId', $id)->update(['isDeleted' => $product->isDeleted]);
 
         $message = $product->isDeleted === '0' ? 'Product activated.' : 'Product set to inactive.';
+        if ($request->expectsJson()) {
+            return response()->json(['status' => (int) $product->isDeleted, 'message' => $message]);
+        }
         return redirect()->route('products.index')->with('success', $message);
     }
 }

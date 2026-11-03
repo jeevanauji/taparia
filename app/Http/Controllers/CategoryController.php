@@ -94,6 +94,9 @@ class CategoryController extends Controller
         $message = $status === 0
             ? 'Category and connected catalog items activated.'
             : 'Category and connected catalog items set to inactive.';
+        if (request()->expectsJson()) {
+            return response()->json(['status' => $status, 'message' => $message]);
+        }
         return redirect()->route('category.index')->with('success', $message);
     }
 }

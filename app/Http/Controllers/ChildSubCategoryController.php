@@ -112,6 +112,9 @@ class ChildSubCategoryController extends Controller
         $message = $status === 0
             ? 'Child category and connected products activated.'
             : 'Child category and connected products set to inactive.';
+        if (request()->expectsJson()) {
+            return response()->json(['status' => $status, 'message' => $message]);
+        }
         return redirect()->route('childsubcategory.index')->with('success', $message);
     }
 }

@@ -114,7 +114,7 @@ Sub Categories
                                 <i class="fas fa-edit"></i> <!-- Edit icon -->
                             </a>
 
-                            <form action="{{ route('subcategory.toggle', $subcategory->id) }}" method="POST" class="d-inline">
+                            <form action="{{ route('subcategory.toggle', $subcategory->id) }}" method="POST" class="d-inline js-catalog-status-form">
                                 @csrf
                                 <button type="submit" class="catalog-status-toggle {{ (int) $subcategory->isDeleted === 0 ? 'is-active' : 'is-inactive' }}" aria-label="{{ (int) $subcategory->isDeleted === 0 ? 'Active. Click to deactivate subcategory and connected items.' : 'Inactive. Click to activate subcategory and connected items.' }}" title="{{ (int) $subcategory->isDeleted === 0 ? 'Active' : 'Inactive' }}">
                                     <span class="toggle-knob" aria-hidden="true"></span>

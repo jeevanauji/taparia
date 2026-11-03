@@ -100,6 +100,9 @@ class SubCategoryController extends Controller
         $message = $status === 0
             ? 'Subcategory and connected catalog items activated.'
             : 'Subcategory and connected catalog items set to inactive.';
+        if (request()->expectsJson()) {
+            return response()->json(['status' => $status, 'message' => $message]);
+        }
         return redirect()->route('subcategory.index')->with('success', $message);
     }
 }

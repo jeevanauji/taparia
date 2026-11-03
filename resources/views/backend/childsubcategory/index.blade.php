@@ -125,7 +125,7 @@ Child Sub Categories
                                 <i class="fas fa-edit"></i>
                             </a>
 
-                            <form action="{{ route('childsubcategory.toggle', $childsubcategory->id) }}" method="POST" class="d-inline">
+                            <form action="{{ route('childsubcategory.toggle', $childsubcategory->id) }}" method="POST" class="d-inline js-catalog-status-form">
                                 @csrf
                                 <button type="submit" class="catalog-status-toggle {{ (int) $childsubcategory->isDeleted === 0 ? 'is-active' : 'is-inactive' }}" aria-label="{{ (int) $childsubcategory->isDeleted === 0 ? 'Active. Click to deactivate child category and connected products.' : 'Inactive. Click to activate child category and connected products.' }}" title="{{ (int) $childsubcategory->isDeleted === 0 ? 'Active' : 'Inactive' }}">
                                     <span class="toggle-knob" aria-hidden="true"></span>

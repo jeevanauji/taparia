@@ -60,6 +60,53 @@
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs4.min.js"></script>
 
         <script type="text/javascript">
+            document.addEventListener('submit', async function (event) {
+                const form = event.target.closest('.js-catalog-status-form');
+                if (!form) return;
+
+                event.preventDefault();
+                const button = form.querySelector('.catalog-status-toggle');
+                if (!button || button.disabled) return;
+
+                button.disabled = true;
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method || 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: new FormData(form),
+                        credentials: 'same-origin'
+                    });
+                    const result = await response.json();
+                    if (!response.ok) throw new Error(result.message || 'Could not update status.');
+
+                    const isActive = Number(result.status) === 0;
+                    button.classList.toggle('is-active', isActive);
+                    button.classList.toggle('is-inactive', !isActive);
+                    button.title = isActive ? 'Active' : 'Inactive';
+                    button.setAttribute('aria-label', (isActive ? 'Active' : 'Inactive') + '. Click to ' + (isActive ? 'deactivate' : 'activate') + '.');
+
+                    let notice = document.getElementById('catalog-status-notice');
+                    if (!notice) {
+                        notice = document.createElement('div');
+                        notice.id = 'catalog-status-notice';
+                        notice.className = 'alert alert-success alert-dismissible fade show';
+                        notice.setAttribute('role', 'status');
+                        notice.style.cssText = 'position:fixed;top:20px;right:20px;z-index:9999;max-width:420px;';
+                        document.body.appendChild(notice);
+                    }
+                    notice.textContent = result.message;
+                    window.setTimeout(function () { notice.remove(); }, 4000);
+                } catch (error) {
+                    window.alert(error.message || 'Could not update status. Please try again.');
+                } finally {
+                    button.disabled = false;
+                }
+            });
+
             window.onload = function () {
                 var alert = document.querySelector('.alert');
                 if (alert) {
