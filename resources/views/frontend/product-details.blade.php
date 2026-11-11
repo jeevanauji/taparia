@@ -5,6 +5,12 @@
 @endsection()
 
 @section('content')
+    @php
+        $cleanProductHtml = static function ($html) {
+            $garbledRootSymbol = "\u{00E2}\u{02C6}\u{0161}";
+            return str_replace($garbledRootSymbol, "\u{221A}", $html ?? '');
+        };
+    @endphp
     <style type="text/css">
         .product-overview {
             overflow-x: auto;
@@ -19,6 +25,16 @@
         .product-description table,
         .product-description table {
             width: 100% !important;
+        }
+
+        .product-table-scroll {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            -webkit-overflow-scrolling: touch;
         }
 
         .product-overview table th,
@@ -985,7 +1001,7 @@
                     <h4>Product Overview</h4>
                     <div class="product-overview" style="padding-left:2px;">
                         <p>
-                            {!! $productInfo->productOverview !!}
+                            {!! $cleanProductHtml($productInfo->productOverview) !!}
                         </p>
                     </div>
                 </div>
@@ -995,13 +1011,13 @@
                 <div class="col-md-6">
                     <div class="product-description">
                         <h4>Special Features</h4>
-                        {!! $productInfo->productHighlighting !!}
+                        {!! $cleanProductHtml($productInfo->productHighlighting) !!}
                     </div>
                 </div>
                 <div class="col-md-6 mt-4 mt-md-0">
                     <div class="product-description">
                         <h4>Salient Features</h4>
-                        {!! $productInfo->productSpecifications !!}
+                        {!! $cleanProductHtml($productInfo->productSpecifications) !!}
                     </div>
                 </div>
             </div>
@@ -1022,6 +1038,26 @@
 @endsection()
 
 @section('javaScript')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tables = document.querySelectorAll(
+                '#content-section .product-overview table, #content-section .product-description table'
+            );
+
+            tables.forEach((table, index) => {
+                if (table.closest('.product-table-scroll')) return;
+
+                const scrollRegion = document.createElement('div');
+                scrollRegion.className = 'product-table-scroll';
+                scrollRegion.setAttribute('role', 'region');
+                scrollRegion.setAttribute('aria-label', `Scrollable product table ${index + 1}`);
+                scrollRegion.tabIndex = 0;
+
+                table.parentNode.insertBefore(scrollRegion, table);
+                scrollRegion.appendChild(table);
+            });
+        });
+    </script>
     <script>
         // Scroll to content section on page load
         document.addEventListener('DOMContentLoaded', function () {

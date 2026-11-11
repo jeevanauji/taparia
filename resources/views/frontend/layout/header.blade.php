@@ -1363,6 +1363,377 @@
 			
 		}
 
+        /* Keep the phone header compact and make its open menu easier to scan. */
+        @media (max-width: 767.98px) {
+            .top-strip {
+                display: flex;
+                position: relative;
+                z-index: 10001;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                padding: 8px 16px 10px;
+                background: #fff;
+                overflow: visible;
+            }
+
+            .top-strip .navbar-brand {
+                display: flex;
+                align-items: center;
+                min-width: 0;
+                margin: 0 auto;
+            }
+
+            .top-strip .navbar-brand img {
+                display: block;
+                width: min(68vw, 230px) !important;
+                height: auto;
+                max-width: calc(100vw - 64px);
+                max-height: none;
+                object-fit: contain;
+                transform: none;
+            }
+
+            .mobile-search-container {
+                z-index: 10002;
+                width: 100%;
+                padding: 8px 0 2px;
+            }
+
+            .main-header .top-strip .suggestion-box {
+                z-index: 12000;
+                max-height: min(45vh, 320px);
+                overflow-y: auto;
+                border-radius: 0 0 10px 10px;
+                box-shadow: 0 10px 24px rgba(20, 45, 52, .2);
+            }
+
+            .mobile-search-bar {
+                min-height: 46px;
+                border: 1px solid #d6e1e3;
+                border-radius: 10px;
+                box-shadow: 0 2px 7px rgba(25, 61, 68, .06);
+            }
+
+            .mobile-search-bar input {
+                min-height: 44px;
+                padding: 10px 13px;
+                background: #fff;
+                color: #263b41;
+            }
+
+            .mobile-search-bar button {
+                display: grid;
+                place-items: center;
+                align-self: stretch;
+                min-width: 48px;
+                padding: 0 14px;
+                background: #74bcc6;
+                color: #fff;
+            }
+
+            .main-navbar {
+                z-index: 10000;
+                padding: 0 16px;
+                margin-bottom: 12px;
+                background: #74bcc6;
+            }
+
+            body.mobile-fullscreen-menu-open .top-strip {
+                z-index: 1000;
+            }
+
+            .main-navbar .container-fluid {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                padding: 0;
+            }
+
+            .main-navbar .navbar-toggler {
+                align-self: flex-start;
+                display: grid;
+                place-items: center;
+                width: 46px;
+                height: 42px;
+                margin: 7px 0 7px 12px;
+                padding: 6px;
+                border: 1px solid rgba(255, 255, 255, .72);
+                border-radius: 10px;
+                box-shadow: none;
+            }
+
+            .main-navbar .navbar-toggler:focus {
+                box-shadow: 0 0 0 3px rgba(255, 255, 255, .22);
+            }
+
+            .main-navbar .navbar-collapse {
+                position: fixed;
+                inset: 0;
+                z-index: 1200;
+                display: block !important;
+                width: 100vw;
+                height: 100vh;
+                height: 100dvh;
+                max-height: none;
+                margin: 0;
+                padding: 72px 20px 28px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                overscroll-behavior: contain;
+                border: 0;
+                border-radius: 0;
+                background: linear-gradient(155deg, #74bcc6 0%, #66b0bb 100%);
+                -webkit-overflow-scrolling: touch;
+                visibility: hidden;
+                opacity: 0;
+                transform: translateY(-14px);
+                pointer-events: none;
+                transition: opacity .26s ease, transform .26s ease, visibility 0s linear .26s !important;
+            }
+
+            body.mobile-fullscreen-menu-open #mainNavbar {
+                visibility: visible;
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
+                transition: opacity .26s ease, transform .26s ease, visibility 0s !important;
+            }
+
+            body.mobile-fullscreen-menu-open .main-navbar .navbar-toggler {
+                position: fixed;
+                z-index: 1201;
+                top: 12px;
+                right: 16px;
+                left: auto;
+                margin: 0;
+                background: #74bcc6;
+            }
+
+            body.mobile-fullscreen-menu-open .main-navbar .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,0.95%29' stroke-linecap='round' stroke-width='2' d='m7 7 16 16M23 7 7 23'/%3e%3c/svg%3e");
+                transform: rotate(90deg);
+                transition: transform .26s ease;
+            }
+
+            body.mobile-products-panel-open .main-navbar .navbar-toggler {
+                display: none;
+            }
+
+            body.mobile-fullscreen-menu-open {
+                overflow: hidden;
+            }
+
+            .main-navbar .navbar-nav {
+                margin: 0 !important;
+                padding: 0;
+                width: 100%;
+                max-width: 540px;
+                margin-right: auto !important;
+                margin-left: auto !important;
+                background: transparent;
+            }
+
+            .main-navbar .navbar-nav > .nav-item {
+                border-bottom: 0;
+            }
+
+            .main-navbar .navbar-nav .nav-link,
+            .navbar-expand-lg .navbar-nav .nav-link.active {
+                display: flex !important;
+                align-items: center;
+                min-height: 48px;
+                margin-bottom: 8px;
+                padding: 11px 14px;
+                border: 1px solid rgba(255, 255, 255, .18);
+                border-radius: 12px;
+                background: rgba(255, 255, 255, .09);
+                color: #fff !important;
+                font-size: 15px;
+                font-weight: 600;
+                line-height: 1.3;
+            }
+
+            .main-navbar .navbar-nav .nav-link.active {
+                background: rgba(255, 255, 255, .09);
+                box-shadow: none;
+                font-weight: 600;
+            }
+
+            .main-navbar .navbar-nav .dropdown-toggle::after {
+                display: none;
+            }
+
+            .main-navbar .mobile-dropdown-icon {
+                margin-left: auto;
+                font-size: 12px;
+            }
+
+            .main-navbar .nav-link.active .mobile-dropdown-icon {
+                transform: none;
+            }
+
+            .main-navbar .navbar-nav.ms-auto,
+            .main-navbar .navbar-nav.ms-auto > div {
+                display: none !important;
+            }
+
+            .main-navbar .dropdown-menu {
+                margin: 0 0 8px;
+                padding: 6px;
+                border: 1px solid rgba(255, 255, 255, .2);
+                border-radius: 12px;
+                background: rgba(24, 91, 101, .22) !important;
+            }
+
+            .main-navbar .mobile-products-panel {
+                position: fixed !important;
+                inset: 0 !important;
+                z-index: 1300;
+                display: block !important;
+                width: 100vw;
+                height: 100vh;
+                height: 100dvh;
+                max-height: none;
+                margin: 0;
+                padding: 18px 20px 28px;
+                overflow-x: hidden;
+                overflow-y: auto;
+                border: 0;
+                border-radius: 0;
+                background: linear-gradient(155deg, #74bcc6 0%, #66aeb9 100%) !important;
+                transform: translateX(100%);
+                visibility: hidden;
+                transition: transform .3s cubic-bezier(.22,.75,.25,1), visibility 0s linear .3s !important;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .main-navbar .mobile-products-panel.show-mobile {
+                transform: translateX(0);
+                visibility: visible;
+                transition: transform .3s cubic-bezier(.22,.75,.25,1), visibility 0s !important;
+            }
+
+            .mobile-products-panel-header {
+                position: sticky;
+                top: -18px;
+                z-index: 1;
+                display: flex;
+                align-items: center;
+                gap: 18px;
+                min-height: 62px;
+                margin: -18px -20px 14px;
+                padding: 10px 20px;
+                border-bottom: 1px solid rgba(255, 255, 255, .22);
+                background: rgba(91, 166, 177, .97);
+                color: #fff;
+            }
+
+            .mobile-products-back {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                min-height: 40px;
+                padding: 7px 10px;
+                border: 1px solid rgba(255, 255, 255, .35);
+                border-radius: 10px;
+                background: rgba(255, 255, 255, .1);
+                color: #fff;
+                font-size: 14px;
+                font-weight: 600;
+            }
+
+            .mobile-products-panel-title {
+                font-size: 19px;
+                font-weight: 700;
+                letter-spacing: .01em;
+            }
+
+            .main-navbar .mobile-all-products-link a {
+                display: flex;
+                align-items: center;
+                min-height: 46px;
+                margin-bottom: 8px;
+                padding: 10px 14px;
+                border: 1px solid rgba(255, 255, 255, .2);
+                border-radius: 12px;
+                background: rgba(255, 255, 255, .12);
+                color: #fff;
+                font-size: 14px;
+                font-weight: 700;
+                text-decoration: none;
+            }
+
+            .main-navbar .dropdown-menu .mobile-category-link:first-child a {
+                display: flex;
+                align-items: center;
+                min-height: 42px;
+                padding: 8px 12px;
+                border-radius: 8px;
+                color: #fff;
+                font-size: 14px;
+                font-weight: 700;
+                text-decoration: none;
+            }
+
+            .main-navbar .dropdown-item,
+            .main-navbar .category-toggle-mobile,
+            .main-navbar .subcategory-toggle-mobile {
+                min-height: 44px;
+                padding: 9px 12px !important;
+                border-bottom-color: rgba(255, 255, 255, .14);
+                color: #fff !important;
+                font-size: 14px;
+            }
+
+            .main-navbar .category-toggle-mobile > a,
+            .main-navbar .subcategory-toggle-mobile > a {
+                color: inherit !important;
+                text-decoration: none;
+            }
+
+            .main-navbar .mobile-subcategory-list {
+                display: block !important;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                background: rgba(17, 77, 86, .2) !important;
+                transition: max-height .32s ease, opacity .24s ease;
+            }
+
+            .main-navbar .mobile-subcategory-list.show {
+                max-height: 60vh;
+                overflow-y: auto;
+                opacity: 1;
+            }
+
+            .main-navbar .mobile-subcategory-list a {
+                padding: 10px 16px;
+                color: #fff !important;
+            }
+
+            .main-navbar .mobile-products-list {
+                display: block !important;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                background: rgba(255, 255, 255, .96) !important;
+                transition: max-height .3s ease, opacity .22s ease;
+            }
+
+            .main-navbar .mobile-products-list.show {
+                max-height: 55vh;
+                overflow-y: auto;
+                opacity: 1;
+            }
+
+            .main-navbar .mobile-products-list a {
+                padding: 10px 18px;
+                color: #31545a !important;
+            }
+
+        }
+
     </style>
 
     <!-- Download Buttons -->
@@ -1427,7 +1798,7 @@
     <nav class="navbar navbar-expand-lg main-navbar">
         <div class="container-fluid">
             <!-- Mobile Toggler -->
-            <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" aria-label="Toggle navigation" aria-controls="mainNavbar" aria-expanded="false">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -1439,7 +1810,7 @@
                     <li class="nav-item mega-menu-container position-static">
                         <a class="nav-link  dropdown-toggle {{ Request::is('products*') ? 'active' : '' }}" href="{{ url('products') }}">
                             Products
-                            <i class="fas fa-chevron-down mobile-dropdown-icon d-lg-none"></i>
+                            <i class="fas fa-chevron-right mobile-dropdown-icon d-lg-none"></i>
                         </a>
 
                         <div class="mega-menu d-none d-lg-block">
@@ -1509,10 +1880,17 @@
                         </div>
 
                        <!-- Mobile Products Menu -->
-<ul class="dropdown-menu d-lg-none">
-	 <li class="mobile-category-link">
-     <a  href="{{ url('products') }}"> Products </a>
-	</li>
+<ul class="dropdown-menu d-lg-none mobile-products-panel">
+    <li class="mobile-products-panel-header">
+        <button type="button" class="mobile-products-back">
+            <i class="fas fa-arrow-left" aria-hidden="true"></i>
+            <span>Menu</span>
+        </button>
+        <span class="mobile-products-panel-title">Categories</span>
+    </li>
+    <li class="mobile-category-link mobile-all-products-link">
+        <a href="{{ url('products') }}">All products</a>
+    </li>
     @foreach($categories as $category)
     <li>
         @if($category->subCategories && $category->subCategories->count())
@@ -1620,6 +1998,20 @@
         const mainNavbar = document.getElementById('mainNavbar');
         const navbarTogglerIcon = document.querySelector('.navbar-toggler-icon');
 
+        const syncMobileMenuState = () => {
+            const isOpen = window.innerWidth <= 767 && mainNavbar.classList.contains('show');
+            document.body.classList.toggle('mobile-fullscreen-menu-open', isOpen);
+            navbarToggler.setAttribute('aria-expanded', String(isOpen));
+            navbarToggler.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+        };
+
+        new MutationObserver(syncMobileMenuState).observe(mainNavbar, {
+            attributes: true,
+            attributeFilter: ['class', 'style']
+        });
+        window.addEventListener('resize', syncMobileMenuState);
+        syncMobileMenuState();
+
         // Mobile menu toggle handler
         navbarToggler.addEventListener('click', function(e) {
             e.preventDefault();
@@ -1638,6 +2030,7 @@
 
         // Ensure all mobile dropdowns start closed
         function initializeMobileMenu() {
+            document.body.classList.remove('mobile-products-panel-open');
             document.querySelectorAll('.dropdown-menu').forEach(menu => {
                 menu.classList.remove('show-mobile');
             });
@@ -1767,6 +2160,7 @@
                         if (isOpen) {
                             // Close this dropdown and all its subcategories and products
                             dropdownMenu.classList.remove('show-mobile');
+                            document.body.classList.remove('mobile-products-panel-open');
                             this.classList.remove('active');
 
                             // Close all subcategories and products within this dropdown
@@ -1785,11 +2179,31 @@
                         } else {
                             // Open this dropdown
                             dropdownMenu.classList.add('show-mobile');
+                            document.body.classList.add('mobile-products-panel-open');
                             this.classList.add('active');
                         }
                     }
                 }
             });
+        });
+
+        document.querySelectorAll('.mobile-products-back').forEach(backButton => {
+            backButton.addEventListener('click', function() {
+                const panel = this.closest('.mobile-products-panel');
+                panel?.classList.remove('show-mobile');
+                document.body.classList.remove('mobile-products-panel-open');
+                document.querySelector('.mega-menu-container > .nav-link')?.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.querySelectorAll('.mobile-products-panel.show-mobile').forEach(panel => {
+                    panel.classList.remove('show-mobile');
+                });
+                document.body.classList.remove('mobile-products-panel-open');
+                document.querySelector('.mega-menu-container > .nav-link')?.classList.remove('active');
+            }
         });
 
         // Handle category toggle clicks (Categories with subcategories) - UPDATED FOR ICON ONLY

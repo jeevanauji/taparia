@@ -2209,6 +2209,29 @@
         text-align: center;
     }
 
+    .product-list-box .category-card-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #fff !important;
+        text-decoration: none;
+    }
+
+    .product-list-box .mobile-category-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 2px;
+        padding: 8px 13px;
+        border: 1px solid rgba(255, 255, 255, .55);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, .16);
+        color: #fff;
+        font-size: .82rem;
+        font-weight: 600;
+        line-height: 1.2;
+    }
+
     .product-list-box .subcateLists h4::after {
         width: 42px;
         background: rgba(255, 255, 255, .9);
@@ -2248,6 +2271,114 @@
         display: none !important;
     }
 
+    /* Show the card image under a translucent Taparia-green layer on phones. */
+    .product-list-box {
+        position: relative;
+        min-height: 260px !important;
+    }
+
+    .product-list-box .product-list-img {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        display: block !important;
+        width: 100%;
+        height: 100% !important;
+        margin: 0 !important;
+    }
+
+    .product-list-box .product-list-img img {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: none;
+        max-height: none;
+        object-fit: cover;
+        border-radius: 0;
+    }
+
+    .product-list-box::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: rgba(91, 177, 188, .78);
+        pointer-events: none;
+    }
+
+    .product-list-box .subcateLists {
+        position: relative !important;
+        z-index: 2;
+        min-height: 260px !important;
+        background: transparent !important;
+    }
+
+    .product-list-box.single-product-card::after {
+        background: linear-gradient(145deg, rgba(73, 159, 171, .58), rgba(52, 133, 146, .72));
+    }
+
+    .product-list-box.single-product-card .product-list-img img {
+        object-position: center;
+    }
+
+    .product-list-box.single-product-card .subcateLists {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        min-height: 260px !important;
+        padding: 24px !important;
+    }
+
+    .single-product-feature {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .single-product-category {
+        color: rgba(255, 255, 255, .9);
+        font-size: .76rem;
+        font-weight: 700;
+        letter-spacing: .1em;
+        line-height: 1.3;
+        text-transform: uppercase;
+    }
+
+    .single-product-feature .single-product-name {
+        max-width: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+        color: #fff !important;
+        font-size: 1.18rem !important;
+        line-height: 1.35;
+        text-shadow: 0 2px 10px rgba(22, 65, 73, .35);
+    }
+
+    .single-product-feature .single-product-name::after {
+        display: none;
+    }
+
+    .single-product-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 42px;
+        margin-top: 3px;
+        padding: 9px 16px;
+        border: 1px solid rgba(255, 255, 255, .72);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, .94);
+        color: #347e89 !important;
+        font-size: .88rem;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 5px 15px rgba(22, 65, 73, .16);
+    }
+
     .product-list-box .subcate-slide .list-unstyled li {
         display: block;
         width: 100%;
@@ -2256,6 +2387,27 @@
     .product-list-box .subcate-slide .list-unstyled a {
         display: block;
         width: 100%;
+    }
+
+    /* Touch screens can retain :hover after a tap; keep product rows readable. */
+    .product-list-box .subcateLists li:hover,
+    .product-list-box .subcateLists li:active,
+    .product-list-box .subcateLists li:focus-within {
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .product-list-box .subcateLists li:hover a,
+    .product-list-box .subcateLists li:active a,
+    .product-list-box .subcateLists a:hover,
+    .product-list-box .subcateLists a:focus {
+        background: transparent !important;
+        color: #fff !important;
+    }
+
+    .product-list-box .subcateLists li::before,
+    .product-list-box .subcateLists li:hover::before {
+        display: none !important;
     }
 
     .product-list-img [data-aos] {
@@ -2268,6 +2420,270 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+}
+
+/* Mobile category browser: keep the catalog visible and move navigation into a drawer. */
+.mobile-category-toolbar,
+.mobile-category-panel-heading,
+.mobile-category-backdrop {
+    display: none;
+}
+
+.mobile-single-product {
+    display: none;
+}
+
+.category-card-link {
+    text-decoration: none;
+}
+
+.mobile-category-cta {
+    display: none;
+}
+
+@media (max-width: 767.98px) {
+    .product-list-box .mobile-single-product {
+        display: flex !important;
+    }
+
+    .product-list-box .desktop-single-product {
+        display: none !important;
+    }
+
+    .mobile-category-toolbar {
+        display: block;
+        max-width: 640px;
+        margin: 0 auto 14px;
+    }
+
+    .mobile-category-trigger {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        min-height: 58px;
+        padding: 10px 14px;
+        border: 1px solid #dce9eb;
+        border-radius: 15px;
+        background: #fff;
+        color: #263b41;
+        box-shadow: 0 5px 16px rgba(31, 71, 80, .08);
+        font: 600 15px/1.2 'Poppins', sans-serif;
+        text-align: left;
+    }
+
+    .mobile-category-trigger-icon {
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        flex: 0 0 36px;
+        border-radius: 11px;
+        background: #eaf6f7;
+        color: #398b96;
+    }
+
+    .mobile-category-trigger-arrow {
+        margin-left: auto;
+        color: #74bcc6;
+        font-size: 13px;
+    }
+
+    .mobile-category-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 1090;
+        background: rgba(18, 35, 40, .48);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .25s ease, visibility .25s ease;
+    }
+
+    .content-section > .container-xl > .row > #mobileCategoryPanel {
+        position: fixed;
+        z-index: 1100;
+        inset: 0 auto 0 0;
+        width: min(88vw, 370px);
+        max-width: none;
+        height: 100vh;
+        height: 100dvh;
+        padding: 0;
+        margin: 0;
+        transform: translateX(-102%);
+        transition: transform .28s ease;
+        pointer-events: none;
+    }
+
+    #mobileCategoryPanel .product-filter {
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        max-height: 100dvh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding: max(22px, env(safe-area-inset-top)) 18px max(24px, env(safe-area-inset-bottom));
+        border: 0;
+        border-radius: 0 22px 22px 0;
+        background: #f8fbfc;
+        box-shadow: 12px 0 36px rgba(20, 44, 50, .2);
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .mobile-category-panel-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 14px;
+        padding: 4px 2px 12px;
+        border-bottom: 1px solid #e3edef;
+    }
+
+    .mobile-category-panel-heading h3 {
+        margin: 2px 0 0;
+        padding: 0;
+        border: 0;
+        color: #20383e;
+        font-size: 22px;
+        line-height: 1.2;
+    }
+
+    .mobile-category-eyebrow {
+        color: #688187;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+    }
+
+    .mobile-category-close {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        flex: 0 0 40px;
+        border: 1px solid #dce8ea;
+        border-radius: 12px;
+        background: #fff;
+        color: #405b61;
+        font-size: 18px;
+    }
+
+    #mobileCategoryPanel .filter-group,
+    #mobileCategoryPanel .custom-accordion {
+        margin: 0;
+        padding: 0;
+    }
+
+    #mobileCategoryPanel .custom-item {
+        margin: 0 0 6px;
+        overflow: hidden;
+        border: 1px solid #e4edef;
+        border-radius: 13px;
+        background: #fff;
+        box-shadow: 0 2px 7px rgba(35, 68, 75, .035);
+    }
+
+    #mobileCategoryPanel .custom-header,
+    #mobileCategoryPanel .custom-sub .custom-header {
+        min-height: 46px;
+        gap: 8px;
+        padding: 5px 9px 5px 12px;
+    }
+
+    #mobileCategoryPanel .custom-header .title,
+    #mobileCategoryPanel .custom-sub .custom-header .title {
+        min-height: 36px;
+        color: #334b51;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.3;
+        text-transform: none;
+    }
+
+    #mobileCategoryPanel .custom-header .title::before {
+        width: 7px;
+        height: 7px;
+        flex: 0 0 7px;
+        background: #9fb5ba;
+    }
+
+    #mobileCategoryPanel .custom-toggle,
+    #mobileCategoryPanel .custom-sub .custom-toggle {
+        width: 30px;
+        height: 30px;
+        flex: 0 0 30px;
+        border-radius: 10px;
+        background: #74bcc6;
+        box-shadow: none;
+    }
+
+    #mobileCategoryPanel .custom-toggle.open {
+        transform: rotate(90deg);
+    }
+
+    #mobileCategoryPanel .custom-body {
+        max-height: 0;
+        padding: 0 12px;
+        background: #f7fafb;
+    }
+
+    #mobileCategoryPanel .custom-body.show {
+        max-height: 55vh;
+        overflow-y: auto;
+        padding: 6px 10px 8px;
+    }
+
+    #mobileCategoryPanel .custom-sub {
+        max-height: none;
+        overflow: visible;
+        padding: 0;
+        border-left: 0;
+    }
+
+    #mobileCategoryPanel .custom-sub .custom-item {
+        margin: 5px 0;
+        border-color: #e7eff0;
+        box-shadow: none;
+    }
+
+    #mobileCategoryPanel .custom-sub .custom-header .title {
+        font-size: 13px;
+    }
+
+    #mobileCategoryPanel .custom-products ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    #mobileCategoryPanel .custom-products li {
+        padding: 0;
+        border-bottom-color: #e8eff0;
+    }
+
+    #mobileCategoryPanel .custom-products a {
+        min-height: 40px;
+        padding: 9px 2px;
+        color: #476168;
+        font-size: 13px;
+        line-height: 1.35;
+    }
+
+    body.mobile-category-panel-open {
+        overflow: hidden;
+    }
+
+    body.mobile-category-panel-open .mobile-category-backdrop {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    body.mobile-category-panel-open .content-section > .container-xl > .row > #mobileCategoryPanel {
+        transform: translateX(0);
+        pointer-events: auto;
     }
 }
     </style>
@@ -2415,11 +2831,27 @@
 
     <div class="content-section">
         <div class="container-xl">
+            <div class="mobile-category-toolbar">
+                <button type="button" class="mobile-category-trigger" id="mobileCategoryTrigger" aria-controls="mobileCategoryPanel" aria-expanded="false">
+                    <span class="mobile-category-trigger-icon" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></span>
+                    <span>Browse categories</span>
+                    <i class="fa-solid fa-chevron-right mobile-category-trigger-arrow" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="mobile-category-backdrop" id="mobileCategoryBackdrop" aria-hidden="true"></div>
             <div class="row">
                 <!-- Filter Section -->
-                <div class="col-md-4">
+                <div class="col-md-4" id="mobileCategoryPanel">
                     <div class="product-filter pro-filter">
-                        <h3>Products</h3>
+                        <div class="mobile-category-panel-heading">
+                            <div>
+                                <span class="mobile-category-eyebrow">Explore</span>
+                                <h3>Categories</h3>
+                            </div>
+                            <button type="button" class="mobile-category-close" id="mobileCategoryClose" aria-label="Close categories">
+                                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                            </button>
+                        </div>
                         <div class="filter-group">
  <!-- <h4>Categories</h4> -->
 
@@ -2524,10 +2956,13 @@
                                         </div>
                                         <div class="subcateLists">
                                             <div>
-                                                <a href="{{ url($subCategoryData['subCategory']->public_url) }}"
-                                                    style="text-decoration: none;">
+                                                <a class="category-card-link" href="{{ url($subCategoryData['subCategory']->public_url) }}">
                                                     <h4 style="margin-top: 0px;">{{ $subCategoryData['subCategory']->name }}
                                                     </h4>
+                                                    <span class="mobile-category-cta">
+                                                        Explore products
+                                                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                                                    </span>
                                                 </a>
                                             </div>
                                         </div>
@@ -2581,8 +3016,15 @@
                                 </div>
                             @else
                             @foreach ($childSubCategoriesWithProducts as $index => $childSubCategoryData)
+                                @php
+                                    $products = $childSubCategoryData['productsBychildSubCategory'];
+                                    $productCount = $products->count();
+                                    $isSingleProduct = $productCount === 1;
+                                    $productChunks = $products->chunk(4);
+                                    $totalProductChunks = $productChunks->count();
+                                @endphp
                                 <div class="col-md-6 mt-3 mt-md-0 pb-3" style="width:100%">
-                                    <div class="product-list-box">
+                                    <div class="product-list-box {{ $isSingleProduct ? 'single-product-card' : '' }}">
                                         <div class="product-list-img" data-aos="fade-up">
                                             @if ($childSubCategoryData['childSubCategory']->childSubCategoryImage)
                                                 <img data-aos="fade-up"
@@ -2595,12 +3037,31 @@
                                         </div>
                                         <div class="subcateLists">
                                             <div>
-                                                @php
-                                                    $products = $childSubCategoryData['productsBychildSubCategory'];
-                                                    $productChunks = $products->chunk(4);
-                                                    $totalProductChunks = $productChunks->count();
-                                                 @endphp
-                                                @if($totalProductChunks > 0)
+                                                @if($isSingleProduct)
+                                                    @php $singleProduct = $products->first(); @endphp
+                                                    <div class="single-product-feature mobile-single-product">
+                                                        @if (strcasecmp(trim($childSubCategoryData['childSubCategory']->name), trim($singleProduct->productName)) !== 0)
+                                                            <span class="single-product-category">{{ $childSubCategoryData['childSubCategory']->name }}</span>
+                                                        @endif
+                                                        <h4 class="single-product-name">{{ $singleProduct->productName }}</h4>
+                                                        <a class="single-product-action" href="{{ url($singleProduct->public_url) }}">
+                                                            View product
+                                                            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="subcate-slider desktop-single-product">
+                                                        <div class="subcate-slides">
+                                                            <div class="subcate-slide">
+                                                                <h4 class="mb-2">{{ $childSubCategoryData['childSubCategory']->name }}</h4>
+                                                                <ul class="list-unstyled">
+                                                                    <li>
+                                                                        <a href="{{ url($singleProduct->public_url) }}">{{ $singleProduct->productName }}</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @elseif($totalProductChunks > 0)
                                                     <div class="subcate-slider" id="product-slider-{{ $index }}">
                                                         <div class="subcate-slides" id="product-slides-{{ $index }}">
                                                             @foreach ($productChunks as $chunkIndex => $productChunk)
@@ -2743,9 +3204,12 @@
                                         </div>
                                         <div class="subcateLists">
                                             <div>
-                                                <a href="{{ url($categoryData->public_url) }}"
-                                                    style="text-decoration: none;">
+                                                <a class="category-card-link" href="{{ url($categoryData->public_url) }}">
                                                     <h4 style="margin-top: 0px;">{{ $categoryData->name }}</h4>
+                                                    <span class="mobile-category-cta">
+                                                        Explore category
+                                                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                                                    </span>
                                                 </a>
                                             </div>
                                         </div>
@@ -3002,6 +3466,43 @@
                 });
             });
         });
+    </script>
+    <script>
+        (() => {
+            const trigger = document.getElementById('mobileCategoryTrigger');
+            const closeButton = document.getElementById('mobileCategoryClose');
+            const backdrop = document.getElementById('mobileCategoryBackdrop');
+            const panel = document.getElementById('mobileCategoryPanel');
+            if (!trigger || !closeButton || !backdrop || !panel) return;
+
+            if (window.matchMedia('(max-width: 767.98px)').matches) {
+                panel.setAttribute('aria-hidden', 'true');
+            }
+
+            const setPanelOpen = (isOpen) => {
+                document.body.classList.toggle('mobile-category-panel-open', isOpen);
+                trigger.setAttribute('aria-expanded', String(isOpen));
+                panel.setAttribute('aria-hidden', String(!isOpen && window.matchMedia('(max-width: 767.98px)').matches));
+                if (isOpen) closeButton.focus();
+                else trigger.focus();
+            };
+
+            trigger.addEventListener('click', () => setPanelOpen(true));
+            closeButton.addEventListener('click', () => setPanelOpen(false));
+            backdrop.addEventListener('click', () => setPanelOpen(false));
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && document.body.classList.contains('mobile-category-panel-open')) {
+                    setPanelOpen(false);
+                }
+            });
+            window.addEventListener('resize', () => {
+                if (!window.matchMedia('(max-width: 767.98px)').matches) {
+                    document.body.classList.remove('mobile-category-panel-open');
+                    trigger.setAttribute('aria-expanded', 'false');
+                    panel.removeAttribute('aria-hidden');
+                }
+            });
+        })();
     </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
