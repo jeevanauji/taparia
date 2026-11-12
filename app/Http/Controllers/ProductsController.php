@@ -88,6 +88,7 @@ class ProductsController extends Controller
                 ProductImages::create([
                     'productId' => $storeProduct->id,
                     'productImage' => $fullPath,
+                    'isDeleted' => '0',
                 ]);
             }
         }
@@ -184,6 +185,7 @@ class ProductsController extends Controller
                 ProductImages::create([
                     'productId' => $product->id,
                     'productImage' => $fullPath,
+                    'isDeleted' => '0',
                 ]);
             }
         }
