@@ -57,7 +57,7 @@
 
                 .top-strip .navbar-brand {
                     display: block;
-                    max-width: min(260px, 78vw);
+                    max-width: min(220px, 68vw);
                 }
 
                 .top-strip .navbar-brand img {
@@ -65,7 +65,7 @@
                     width: 100% !important;
                     max-width: 100%;
                     height: auto !important;
-                    max-height: 58px;
+                    max-height: 46px;
                     object-fit: contain;
                     object-position: left center;
                 }

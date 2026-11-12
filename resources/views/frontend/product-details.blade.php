@@ -13,18 +13,15 @@
     @endphp
     <style type="text/css">
         .product-overview {
-            overflow-x: auto;
+            overflow-x: visible;
         }
 
-        .product-overview table {
-            width: 100% !important;
-        }
-
-        .product-description ul li,
-        .product-description ul li,
+        .product-overview table,
         .product-description table,
-        .product-description table {
-            width: 100% !important;
+        .product-table-scroll table {
+            width: max-content;
+            min-width: max-content;
+            max-width: none;
         }
 
         .product-table-scroll {
@@ -35,21 +32,6 @@
             overflow-y: hidden;
             overscroll-behavior-x: contain;
             -webkit-overflow-scrolling: touch;
-        }
-
-        .product-overview table th,
-        .product-overview table td {
-            font-size: 14px;
-            padding: 5px;
-        }
-
-        @media (max-width:767px) {
-
-            .product-overview table th,
-            .product-overview table td {
-                font-size: 10px;
-                padding: 2px;
-            }
         }
 
         .product-description img,
