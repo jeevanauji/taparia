@@ -19,19 +19,33 @@
         .product-overview table,
         .product-description table,
         .product-table-scroll table {
-            width: max-content;
-            min-width: max-content;
-            max-width: none;
+            width: auto;
+            max-width: 100%;
         }
 
         .product-table-scroll {
             display: block;
-            width: 100%;
+            width: auto;
             max-width: 100%;
-            overflow-x: auto;
-            overflow-y: hidden;
-            overscroll-behavior-x: contain;
-            -webkit-overflow-scrolling: touch;
+            overflow: visible;
+        }
+
+        @media (max-width: 767.98px) {
+            .product-table-scroll {
+                width: 100%;
+                overflow-x: auto;
+                overflow-y: hidden;
+                overscroll-behavior-x: contain;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .product-overview table,
+            .product-description table,
+            .product-table-scroll table {
+                width: max-content !important;
+                min-width: max-content;
+                max-width: none;
+            }
         }
 
         .product-description img,
